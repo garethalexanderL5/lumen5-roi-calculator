@@ -174,7 +174,7 @@
         let savingsChart = null;
 
         const $ = (v) => parseFloat(v) || 0;
-        const formatC = (v) => `$${Math.round(v).toLocaleString()}`;
+        const formatC = (v) => `${v < 0 ? '-$' : '$'}${Math.abs(Math.round(v)).toLocaleString()}`;
         const formatH = (v, d = 0) => `${$(v).toFixed(d)} hours`;
 
         const calculate = () => {
@@ -228,11 +228,11 @@
             const { results: r, inputs: i } = state;
             const resUI = ui.results;
             
-            resUI.totalSavings.textContent = `${r.totalValueCreated >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.totalValueCreated)).toLocaleString()}`;
+            resUI.totalSavings.textContent = formatC(r.totalValueCreated);
             resUI.timeSaved.textContent = `${Math.round(r.totalTimeSaved)}h`;
-            resUI.timeValue.textContent = formatC(Math.max(0, r.timeValueSaved));
+            resUI.timeValue.textContent = formatC(r.timeValueSaved);
             resUI.roiPercentage.textContent = `${Math.round(r.totalROI)}%`;
-            resUI.savingsPerVideo.textContent = `${r.savingsPerVideo >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.savingsPerVideo))}`;
+            resUI.savingsPerVideo.textContent = formatC(r.savingsPerVideo);
             resUI.costROI.textContent = `${Math.round(r.costOnlyROI)}%`;
             resUI.totalValue.textContent = resUI.totalSavings.textContent;
             resUI.breakeven.textContent = r.breakEvenVideos !== Infinity ? r.breakEvenVideos.toFixed(1) : "N/A";
@@ -311,7 +311,7 @@
                 options: {
                     responsive: true, maintainAspectRatio: false,
                     plugins: { legend: { position: "top" }, title: { display: true, text: `12-Month Savings Projection (${videosPerMonth.toFixed(1)} videos/month)` } },
-                    scales: { y: { ticks: { callback: (v) => formatC(v).replace('$-', '-$') } } }
+                    scales: { y: { ticks: { callback: (v) => formatC(v) } } }
                 }
             });
         };
