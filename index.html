@@ -3,395 +3,879 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumen5 ROI Calculator - Post-Production Savings</title>
+    <title>Lumen5 ROI Calculator - Quantify Your Video Impact</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}.container{max-width:1200px;margin:0 auto;background:rgba(255,255,255,.95);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.1);overflow:hidden}.header{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;padding:40px;text-align:center}.header h1{font-size:2.5rem;margin-bottom:10px;font-weight:700}.header p{font-size:1.1rem;opacity:.9}.main-content{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:600px}.input-section{padding:40px;background:#f8fafc;border-right:1px solid #e2e8f0;color:#374151}.results-section{padding:40px;background:#fff}.form-group{margin-bottom:25px}.form-group label{display:block;margin-bottom:8px;font-weight:600;color:#374151;font-size:.95rem}.form-group input,.form-group select{width:100%;padding:12px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:1rem;transition:all .3s ease;background:#fff;color:#1e293b}.form-group select:disabled{background:#f3f4f6;cursor:not-allowed;color:#374151}.form-group input:focus,.form-group select:focus{outline:0;border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.1)}.form-group small{display:block;margin-top:5px;color:#6b7280;font-size:.85rem;line-height:1.4}.calculate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;border:none;border-radius:12px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 15px rgba(79,70,229,.3)}.calculate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(79,70,229,.4)}.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px}.metric-card{background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 100%);padding:25px;border-radius:16px;text-align:center;border:1px solid #e2e8f0;transition:transform .3s ease;position:relative;color:#1e293b}.info-button{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#4f46e5;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;transition:all .3s ease;box-shadow:0 2px 4px rgba(79,70,229,.3)}.info-button:hover{background:#3730a3;transform:scale(1.1)}.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.5);backdrop-filter:blur(5px)}.modal-content{background-color:#fff;margin:10% auto;padding:30px;border-radius:20px;width:90%;max-width:500px;position:relative;box-shadow:0 20px 40px rgba(0,0,0,.2);animation:modalSlideIn .3s ease-out}@keyframes modalSlideIn{0%{opacity:0;transform:translateY(-50px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #e2e8f0}.modal-header h3{color:#1e293b;font-size:1.3rem;margin:0}.close-modal{background:0 0;border:none;font-size:24px;cursor:pointer;color:#64748b;padding:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease}.close-modal:hover{background:#f1f5f9;color:#1e293b}.modal-body{color:#374151;line-height:1.6}.calculation-formula{background:#f8fafc;padding:15px;border-radius:10px;border-left:4px solid #4f46e5;margin:15px 0;font-family:monospace;font-weight:700;color:#1e293b}.example-box{background:#ecfdf5;padding:15px;border-radius:10px;border-left:4px solid #10b981;margin:15px 0;font-size:.95rem;line-height:1.8}.example-box strong{color:#065f46}.metric-card:hover{transform:translateY(-2px)}.metric-value{font-size:2.2rem;font-weight:700;color:#1e293b;margin-bottom:8px}.metric-label{font-size:.9rem;color:#374151;font-weight:500}.savings-highlight{color:#fff;padding:30px;border-radius:16px;text-align:center;margin-bottom:30px;box-shadow:0 10px 25px rgba(16,185,129,.3)}.savings-highlight h3{font-size:1.3rem;margin-bottom:10px}.savings-highlight .amount{font-size:3rem;font-weight:700;margin-bottom:5px}.cost-method-note{margin-top:15px;font-size:.85rem;opacity:.9;background:rgba(255,255,255,.1);padding:10px 15px;border-radius:8px}.chart-container{height:300px;margin-top:20px}.hidden{display:none}.comparison-table{width:100%;border-collapse:collapse;margin-top:20px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,.05)}.comparison-table th,.comparison-table td{padding:15px;text-align:left;border-bottom:1px solid #e2e8f0}.comparison-table td{color:#374151}.comparison-table th{background:#e5e7eb;font-weight:600;color:#374151}.export-btn{margin-top:20px;padding:12px 24px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:500;transition:background .3s ease}.export-btn:hover{background:#4b5563}@media (max-width:768px){.main-content{grid-template-columns:1fr}.input-section{border-right:none;border-bottom:1px solid #e2e8f0}.results-grid{grid-template-columns:1fr}.header h1{font-size:2rem}}</style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              headline: ["Plus Jakarta Sans", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+            borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem" },
+          },
+        },
+      };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .digital-aurora-bg {
+            background: radial-gradient(circle at 0% 0%, rgba(86, 69, 245, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, rgba(139, 25, 206, 0.15) 0%, transparent 50%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(200, 196, 217, 0.1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 40px rgba(86, 69, 245, 0.2);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: modalSlideIn 0.3s ease-out;
+            color: #e2e8f0;
+        }
+        @keyframes modalSlideIn {
+            0% { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .calculation-formula {
+            background: rgba(86, 69, 245, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #5645f5;
+            margin: 15px 0;
+            font-family: monospace;
+            font-weight: 700;
+            color: #c4b5fd;
+        }
+        .example-box {
+            background: rgba(16, 185, 129, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+            margin: 15px 0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .example-box strong { color: #6ee7b7; }
+        select option { background: #0f172a; color: #e2e8f0; }
+        /* Hide number input spinners */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>Lumen5 ROI Calculator</h1>
-            <p>Calculate your video post-production time and cost savings</p>
-            <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">Transform weeks of editing and revision cycles into hours with AI-powered video creation</p>
-        </header>
-        
-        <main class="main-content">
-            <div class="input-section">
-                <div class="form-group">
-                    <label for="videoCount">Number of Videos Created</label>
-                    <input type="number" id="videoCount" placeholder="e.g., 20" min="1" value="20">
+<body class="bg-slate-950 text-slate-100 font-body selection:bg-purple-500/30">
+
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-3xl shadow-[0_40px_80px_rgba(86,69,245,0.08)]">
+    <div class="flex justify-between items-center px-8 h-20 w-full mx-auto max-w-7xl">
+        <div class="flex items-center gap-3">
+            <img src="https://storage.googleapis.com/lumen5-site-images/lumen5-logo/L5-logo-monotone-white.png" alt="Lumen5" class="h-8">
+            <span class="hidden sm:inline text-lg font-bold text-white/60 font-headline tracking-tight">ROI Calculator</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="text-[#5645F5] border-b-2 border-[#5645F5] font-semibold py-1 transition-all" href="#">Calculator</a>
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://lumen5.com/case-study" target="_blank">Case Studies</a>
+            <a class="text-slate-400 hover:text-white transition-colors" href="https://lumen5.com/enterprise/" target="_blank">Enterprise</a>
+        </div>
+        <button class="export-btn bg-gradient-to-r from-[#5645f5] to-[#8b19ce] text-white px-4 sm:px-8 py-2 sm:py-3 rounded-full font-bold hover:scale-[1.02] active:scale-95 transition-all text-xs sm:text-sm">
+            <span class="material-symbols-outlined text-sm align-middle mr-1">content_copy</span><span class="hidden sm:inline">Export </span>Report
+        </button>
+    </div>
+</nav>
+
+<main class="pt-32 pb-24 px-6 min-h-screen digital-aurora-bg">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Hero Section -->
+        <div class="mb-16 text-center md:text-left max-w-3xl">
+            <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
+                Stop Overspending on <br>Video Production.
+            </h1>
+            <p class="text-xl text-slate-400 leading-relaxed font-body">
+                Enter your current workflow metrics and see exactly how much Lumen5 can save your team in post-production costs and coordination time.
+            </p>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- ==================== LEFT PANEL: INPUTS (5/12) ==================== -->
+            <div class="lg:col-span-5 flex flex-col gap-8">
+
+                <!-- Efficiency Metrics Card -->
+                <div class="glass-card p-8 md:p-10 rounded-2xl">
+                    <h2 class="font-headline text-2xl font-bold mb-8 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#5645f5]">tune</span>
+                        Efficiency Metrics
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label for="videoCount" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Videos Created</label>
+                            <div class="relative">
+                                <input type="number" id="videoCount" placeholder="e.g., 20" min="1" value="20"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">units</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="timeFrame" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Time Period</label>
+                            <div class="relative">
+                                <input type="number" id="timeFrame" placeholder="e.g., 1" min="1" max="12" value="1"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">months</span>
+                            </div>
+                        </div>
+                        <!-- Pricing Mode Toggle -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Pricing</label>
+                                <button id="pricingModeToggle" class="text-xs text-[#5645f5] hover:text-[#8b19ce] transition-colors font-medium">I know my annual cost</button>
+                            </div>
+                        </div>
+
+                        <!-- Team Size Slider (default view) -->
+                        <div id="teamSizeGroup" class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label for="teamSize" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Team Size (Power Users)</label>
+                                <span id="teamSizeValue" class="text-2xl font-bold text-[#8b19ce]">5</span>
+                            </div>
+                            <input type="range" id="teamSize" min="3" max="350" value="5"
+                                class="w-full accent-[#8b19ce] cursor-pointer h-2 bg-slate-800 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#8b19ce] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(139,25,206,0.5)]">
+                            <div class="flex justify-between text-[10px] text-slate-600 px-1">
+                                <span>3</span><span>10</span><span>50</span><span>300+</span>
+                            </div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span id="planBadge" class="text-xs font-semibold bg-[#5645f5]/20 text-[#5645f5] px-3 py-1 rounded-full">Enterprise Starter</span>
+                                <span id="estimatedCostLabel" class="hidden">Est. $24,802/yr</span>
+                            </div>
+                        </div>
+
+                        <!-- Manual Enterprise Cost (hidden by default) -->
+                        <div id="manualCostGroup" style="display: none;" class="space-y-2">
+                            <label for="enterpriseCost" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Annual Enterprise Cost</label>
+                            <div class="relative">
+                                <input type="number" id="enterpriseCost" placeholder="e.g., 15000" min="0" step="1000" value="24802"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">USD/yr</span>
+                            </div>
+                        </div>
+
+                        <!-- Hidden fields to preserve JS compatibility -->
+                        <select id="lumenPlan" class="hidden">
+                            <option value="enterprise" selected>Enterprise (Custom)</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="timeFrame">Time Period (months)</label>
-                    <input type="number" id="timeFrame" placeholder="e.g., 1" min="1" max="12" value="1">
-                </div>
-                <div class="form-group">
-                    <label for="lumenPlan">Your Lumen5 Plan</label>
-                    <select id="lumenPlan" disabled>
-                        <option value="enterprise" selected>Enterprise (Custom)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="enterpriseCost">Annual Enterprise Cost</label>
-                    <input type="number" id="enterpriseCost" placeholder="e.g., 15000" min="0" step="1000" value="12000">
-                </div>
-                <div class="form-group">
-                    <label for="costMethod">How do you calculate traditional post-production costs?</label>
-                    <select id="costMethod">
-                        <option value="direct">Direct cost per video</option>
-                        <option value="hourly">Hourly rate × Time</option>
-                    </select>
-                </div>
-                <div class="form-group" id="traditionalCostGroup">
-                    <label for="traditionalCost">Traditional Video Post-Production Cost per Video</label>
-                    <input type="number" id="traditionalCost" placeholder="e.g., 800" min="0" step="50" value="800">
-                    <small>Typical cost for editing, revisions, and final delivery</small>
-                </div>
-                <div class="form-group" id="hourlyRateGroup" style="display: none;">
-                    <label for="traditionalHourlyRate">Traditional Post-Production Hourly Rate</label>
-                    <select id="traditionalHourlyRate">
-                        <option value="75">Freelance Video Editor ($75/hr)</option>
-                        <option value="100" selected>Professional Video Editor ($100/hr)</option>
-                        <option value="150">Video Production Agency ($150/hr)</option>
-                        <option value="200">Premium Post-Production Studio ($200/hr)</option>
-                        <option value="custom">Custom Hourly Rate</option>
-                    </select>
-                </div>
-                <div class="form-group" id="customRateGroup" style="display: none;">
-                    <label for="customRate">Custom Hourly Rate ($)</label>
-                    <input type="number" id="customRate" placeholder="e.g., 125" min="0" step="25" value="100">
-                </div>
-                <div class="form-group">
-                    <label for="traditionalTime">Traditional Production Time (hours per video)</label>
-                    <input type="number" id="traditionalTime" placeholder="e.g., 8" min="0" step="0.5" value="6">
-                </div>
-                <div class="form-group">
-                    <label for="lumenTime">Lumen5 Creation Time (minutes per video)</label>
-                    <input type="number" id="lumenTime" placeholder="e.g., 90" min="0" step="15" value="90">
-                    <small>Includes AI-powered creation (30 min) + minimal review/coordination (60 min)</small>
-                </div>
-                <div class="form-group">
-                    <label for="hourlyWage">Production Coordination Wage</label>
-                    <select id="hourlyWage">
-                        <option value="40">Marketing Coordinator ($40/hr)</option>
-                        <option value="50" selected>Marketing Specialist ($50/hr)</option>
-                        <option value="65">Marketing Manager ($65/hr)</option>
-                        <option value="85">Senior Marketing Manager ($85/hr)</option>
-                        <option value="100">Director of Marketing ($100/hr)</option>
-                        <option value="custom">Custom Production Wage</option>
-                    </select>
-                </div>
-                <div class="form-group" id="customWageGroup" style="display: none;">
-                    <label for="customWage">Custom Production Wage ($)</label>
-                    <input type="number" id="customWage" placeholder="e.g., 65" min="0" step="5" value="50">
-                </div>
-                <button class="calculate-btn">Calculate My Savings</button>
-            </div>
-            
-            <div class="results-section">
-                <div id="results" class="hidden">
-                    <h2 style="margin-bottom: 30px; color: #1e293b;">Your ROI Analysis</h2>
-                    <p style="margin-bottom: 20px; color: #64748b; font-size: 0.95rem;">Based on post-production time and cost savings with AI-powered video creation</p>
-                    <div class="savings-highlight">
-                        <h3>Total Value Created</h3>
-                        <div class="amount" id="totalSavings">$0</div>
-                        <p>Cost savings + Time value saved</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">Plus: Project timelines compressed from weeks to hours</p>
-                        <div id="costMethodNote" class="cost-method-note" style="display: none;">
-                            <strong>Cost Method:</strong> <span id="costMethodText"></span>
+
+                <!-- Cost & Time Card -->
+                <div class="glass-card p-8 md:p-10 rounded-2xl">
+                    <h2 class="font-headline text-2xl font-bold mb-8 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#8b19ce]">rocket_launch</span>
+                        Cost &amp; Time Drivers
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label for="costMethod" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Cost Calculation Method</label>
+                            <select id="costMethod"
+                                class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-lg text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <option value="direct">Direct cost per video</option>
+                                <option value="hourly">Hourly rate x Time</option>
+                            </select>
+                        </div>
+                        <div id="traditionalCostGroup" class="space-y-2">
+                            <label for="traditionalCost" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Traditional Post-Production Cost / Video</label>
+                            <div class="relative">
+                                <input type="number" id="traditionalCost" placeholder="e.g., 800" min="0" step="50" value="800"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">USD</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Typical cost for editing, revisions, and final delivery</p>
+                        </div>
+                        <div id="hourlyRateGroup" style="display: none;" class="space-y-2">
+                            <label for="traditionalHourlyRate" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Post-Production Hourly Rate</label>
+                            <select id="traditionalHourlyRate"
+                                class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-lg text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <option value="75">Freelance Video Editor ($75/hr)</option>
+                                <option value="100" selected>Professional Video Editor ($100/hr)</option>
+                                <option value="150">Video Production Agency ($150/hr)</option>
+                                <option value="200">Premium Post-Production Studio ($200/hr)</option>
+                                <option value="custom">Custom Hourly Rate</option>
+                            </select>
+                        </div>
+                        <div id="customRateGroup" style="display: none;" class="space-y-2">
+                            <label for="customRate" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Custom Hourly Rate</label>
+                            <div class="relative">
+                                <input type="number" id="customRate" placeholder="e.g., 125" min="0" step="25" value="100"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">$/hr</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="traditionalTime" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Traditional Production Time / Video</label>
+                            <div class="relative">
+                                <input type="number" id="traditionalTime" placeholder="e.g., 8" min="0" step="0.5" value="6"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">hours</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="lumenTime" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Lumen5 Creation Time / Video</label>
+                            <div class="relative">
+                                <input type="number" id="lumenTime" placeholder="e.g., 90" min="0" step="15" value="90"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">mins</span>
+                            </div>
+                            <p class="text-xs text-slate-600">AI-powered creation (30 min) + minimal review (60 min)</p>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="hourlyWage" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Production Coordination Wage</label>
+                            <select id="hourlyWage"
+                                class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-lg text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <option value="40">Marketing Coordinator ($40/hr)</option>
+                                <option value="50" selected>Marketing Specialist ($50/hr)</option>
+                                <option value="65">Marketing Manager ($65/hr)</option>
+                                <option value="85">Senior Marketing Manager ($85/hr)</option>
+                                <option value="100">Director of Marketing ($100/hr)</option>
+                                <option value="custom">Custom Production Wage</option>
+                            </select>
+                        </div>
+                        <div id="customWageGroup" style="display: none;" class="space-y-2">
+                            <label for="customWage" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Custom Production Wage</label>
+                            <div class="relative">
+                                <input type="number" id="customWage" placeholder="e.g., 65" min="0" step="5" value="50"
+                                    class="w-full bg-slate-900/50 border-none rounded-xl py-4 px-6 text-xl text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none select-none">$/hr</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="results-grid">
-                        <div class="metric-card"><button class="info-button" data-modal="timeSaved">i</button><div class="metric-value" id="timeSaved">0h</div><div class="metric-label">Post-Production Time Saved</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="timeValue">i</button><div class="metric-value" id="timeValue">$0</div><div class="metric-label">Coordination Time Value</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="roi">i</button><div class="metric-value" id="roiPercentage">0%</div><div class="metric-label">Total ROI</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="productivity">i</button><div class="metric-value" id="productivityGain">0x</div><div class="metric-label">Post-Production Speed</div></div>
-                    </div>
-                    <div class="results-grid">
-                        <div class="metric-card"><button class="info-button" data-modal="savingsPerVideo">i</button><div class="metric-value" id="savingsPerVideo">$0</div><div class="metric-label">Total Savings per Video</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="costROI">i</button><div class="metric-value" id="costROI">0%</div><div class="metric-label">Post-Production Cost ROI</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="totalValue">i</button><div class="metric-value" id="totalValue">$0</div><div class="metric-label">Total Value Created</div></div>
-                        <div class="metric-card"><button class="info-button" data-modal="breakeven">i</button><div class="metric-value" id="breakeven">0</div><div class="metric-label">Videos to Break Even</div></div>
-                    </div>
-                    <table class="comparison-table">
-                        <thead><tr><th>Metric</th><th>Traditional Post-Production</th><th>Lumen5</th><th>Difference</th></tr></thead>
-                        <tbody id="comparisonTableBody"></tbody>
-                    </table>
-                    <div class="chart-container"><canvas id="savingsChart"></canvas></div>
-                </div>
-                <div id="placeholder" style="text-align: center; padding: 100px 20px; color: #64748b;">
-                    <h3>Enter your data to see results</h3>
-                    <p>Fill out the form on the left to calculate your video post-production savings</p>
                 </div>
             </div>
-        </main>
-    </div>
 
-    <div id="calculationModal" class="modal">
-        <div class="modal-content">
-            <header class="modal-header">
-                <h3 id="modalTitle">Calculation Details</h3>
-                <button class="close-modal">&times;</button>
-            </header>
-            <div class="modal-body" id="modalBody"></div>
+            <!-- ==================== RIGHT PANEL: RESULTS (7/12) ==================== -->
+            <div class="lg:col-span-7 space-y-8">
+
+                <!-- Placeholder (shown before calculation) -->
+                <div id="placeholder" class="glass-card rounded-2xl p-20 text-center hidden">
+                    <span class="material-symbols-outlined text-6xl text-slate-700 mb-4 block">analytics</span>
+                    <h3 class="text-xl font-bold text-slate-500 mb-2">Enter your data to see results</h3>
+                    <p class="text-slate-600">Fill out the form on the left to calculate your video post-production savings</p>
+                </div>
+
+                <!-- Results Container -->
+                <div id="results">
+
+                    <!-- Hero Result Card -->
+                    <div class="savings-highlight relative overflow-hidden rounded-2xl neon-glow p-10 md:p-12 min-h-[360px] flex flex-col justify-between bg-gradient-to-br from-[#5645f5] to-[#8b19ce]">
+                        <div class="absolute top-0 right-0 p-12 opacity-10">
+                            <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Total Value Created</span>
+                            <h3 id="totalSavings" class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-2">$0</h3>
+                            <p class="text-white/80 text-lg max-w-md">Cost savings + Time value saved</p>
+                            <div id="costMethodNote" class="mt-3 text-white/60 text-sm bg-white/10 px-4 py-2 rounded-lg inline-block" style="display: none;">
+                                <strong>Cost Method:</strong> <span id="costMethodText"></span>
+                            </div>
+                        </div>
+                        <div class="relative z-10 flex gap-8 md:gap-12 border-t border-white/20 pt-8 mt-8 flex-wrap">
+                            <div>
+                                <p class="text-white/60 text-xs uppercase font-bold tracking-widest mb-1">Efficiency Boost</p>
+                                <p id="productivityGain" class="text-3xl font-bold text-white">0x</p>
+                            </div>
+                            <div>
+                                <p class="text-white/60 text-xs uppercase font-bold tracking-widest mb-1">Time Saved</p>
+                                <p id="timeSaved" class="text-3xl font-bold text-white">0h</p>
+                            </div>
+                            <div>
+                                <p class="text-white/60 text-xs uppercase font-bold tracking-widest mb-1">Total ROI</p>
+                                <p id="roiPercentage" class="text-3xl font-bold text-white">0%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metric Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="glass-card p-6 rounded-2xl relative group">
+                            <button class="info-button absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 text-slate-400 hover:bg-[#5645f5] hover:text-white transition-all flex items-center justify-center text-xs font-bold" data-modal="timeValue">i</button>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mb-2">Coordination Time Value</p>
+                            <p id="timeValue" class="text-3xl font-bold text-white">$0</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl relative group">
+                            <button class="info-button absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 text-slate-400 hover:bg-[#5645f5] hover:text-white transition-all flex items-center justify-center text-xs font-bold" data-modal="savingsPerVideo">i</button>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mb-2">Savings per Video</p>
+                            <p id="savingsPerVideo" class="text-3xl font-bold text-white">$0</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl relative group">
+                            <button class="info-button absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 text-slate-400 hover:bg-[#5645f5] hover:text-white transition-all flex items-center justify-center text-xs font-bold" data-modal="costROI">i</button>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mb-2">Post-Production Cost ROI</p>
+                            <p id="costROI" class="text-3xl font-bold text-white">0%</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl relative group">
+                            <button class="info-button absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 text-slate-400 hover:bg-[#5645f5] hover:text-white transition-all flex items-center justify-center text-xs font-bold" data-modal="totalValue">i</button>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mb-2">Total Value</p>
+                            <p id="totalValue" class="text-3xl font-bold text-white">$0</p>
+                        </div>
+                    </div>
+
+                    <!-- Cost Comparison + ROI Velocity -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <!-- Cost Reduction -->
+                        <div class="glass-card p-8 rounded-2xl flex flex-col items-center justify-center text-center">
+                            <h4 class="font-bold mb-4 text-slate-400 uppercase tracking-widest text-xs w-full text-left">Cost Reduction</h4>
+                            <div class="relative w-36 h-36 mb-4">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 128 128">
+                                    <circle class="text-slate-800" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+                                    <circle id="costReductionRing" class="text-[#10b981]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="364.4" stroke-width="8" stroke-linecap="round" style="transition: stroke-dashoffset 0.7s ease;"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="costReductionPct" class="text-3xl font-black text-[#10b981]">0%</span>
+                                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">less cost</span>
+                                </div>
+                            </div>
+                            <p id="costReductionLabel" class="text-sm text-slate-400">vs. traditional post-production</p>
+                        </div>
+                        <!-- Hidden elements to preserve JS references -->
+                        <span id="barTraditionalCost" class="hidden"></span>
+                        <span id="barLumenCost" class="hidden"></span>
+                        <div id="barTraditionalWidth" class="hidden"></div>
+                        <div id="barLumenWidth" class="hidden"></div>
+                        <!-- ROI Velocity Donut -->
+                        <div class="glass-card p-8 rounded-2xl flex flex-col items-center justify-center text-center relative">
+                            <button class="info-button absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 text-slate-400 hover:bg-[#5645f5] hover:text-white transition-all flex items-center justify-center text-xs font-bold" data-modal="breakeven">i</button>
+                            <div class="relative w-32 h-32 mb-4">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 128 128">
+                                    <circle class="text-slate-800" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+                                    <circle id="donutRing" class="text-[#8b19ce]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="40" stroke-width="8" style="transition: stroke-dashoffset 0.7s ease;"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span id="breakeven" class="text-2xl font-black">0</span>
+                                </div>
+                            </div>
+                            <p class="font-bold text-slate-200">Videos to Break Even</p>
+                            <p id="breakevenSubtext" class="text-sm text-slate-500">Enter data to calculate</p>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Table -->
+                    <div class="glass-card rounded-2xl mt-6 overflow-hidden">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-white/5">
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Metric</th>
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Traditional</th>
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Lumen5</th>
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Difference</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparisonTableBody" class="divide-y divide-white/5"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="glass-card rounded-2xl p-8 mt-6">
+                        <div class="h-[300px]">
+                            <canvas id="savingsChart"></canvas>
+                        </div>
+                    </div>
+
+                </div><!-- end #results -->
+            </div>
         </div>
     </div>
+</main>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const getEl = (id) => document.getElementById(id);
-        const ui = {
+<!-- Footer -->
+<footer class="bg-slate-950 w-full pt-16 pb-8 px-8 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+            <!-- Platform -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Platform</h4>
+                <ul class="space-y-3">
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com" target="_blank">Home</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/pricing/" target="_blank">Pricing</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/enterprise/" target="_blank">Enterprise</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/case-study" target="_blank">Case Studies</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/privacy/" target="_blank">Privacy</a></li>
+                </ul>
+            </div>
+            <!-- Solutions: Industry -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Industry</h4>
+                <ul class="space-y-3">
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/professional-services" target="_blank">Professional Service Firms</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/tech-telecom" target="_blank">Technology &amp; Telecom</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/manufacturing" target="_blank">Manufacturing</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/banking-financial" target="_blank">Banking &amp; Financial</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/oil-gas-mining" target="_blank">Oil, Gas &amp; Mining</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/media-publishing" target="_blank">Media &amp; Publishing</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/government-healthcare-nonprofit" target="_blank">Government, Health, NGOs</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/education-university-college" target="_blank">Colleges &amp; Universities</a></li>
+                </ul>
+            </div>
+            <!-- Solutions: Use Case -->
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Use Case</h4>
+                <ul class="space-y-3">
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/ai-video-marketing-platform" target="_blank">Marketing</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/ai-learning-development" target="_blank">Learning &amp; Development</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/internal-comms-video-platform" target="_blank">Internal Communications</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/ai-linkedin-video-generator" target="_blank">LinkedIn Videos</a></li>
+                    <li><a class="text-sm text-slate-500 hover:text-[#8b19ce] transition-colors" href="https://lumen5.com/solutions/ai-instagram-video-generator" target="_blank">Instagram Videos</a></li>
+                </ul>
+            </div>
+            <!-- Logo Column -->
+            <div class="flex flex-col items-start md:items-end justify-between">
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://storage.googleapis.com/lumen5-site-images/lumen5-logo/L5-logo-monotone-white.png" alt="Lumen5" class="h-7">
+                </div>
+                <p class="text-xs text-slate-600 md:text-right">The #1 AI video creation<br>platform for enterprise teams.</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-900 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-slate-600">&copy; 2026 Lumen5 Technologies Inc.</p>
+            <p class="text-xs text-slate-600">801-750 W Pender Street, Vancouver, BC, Canada V6C 1G8</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Modal -->
+<div id="calculationModal" class="modal">
+    <div class="modal-content">
+        <header class="flex justify-between items-center mb-5 pb-4 border-b border-white/10">
+            <h3 id="modalTitle" class="text-lg font-bold">Calculation Details</h3>
+            <button class="close-modal w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all text-xl">&times;</button>
+        </header>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const getEl = (id) => document.getElementById(id);
+    const ui = {
+        inputs: {
+            videoCount: getEl("videoCount"), timeFrame: getEl("timeFrame"), enterpriseCost: getEl("enterpriseCost"),
+            costMethod: getEl("costMethod"), traditionalCost: getEl("traditionalCost"), traditionalHourlyRate: getEl("traditionalHourlyRate"),
+            customRate: getEl("customRate"), traditionalTime: getEl("traditionalTime"), lumenTime: getEl("lumenTime"),
+            hourlyWage: getEl("hourlyWage"), customWage: getEl("customWage"),
+        },
+        groups: {
+            traditionalCost: getEl("traditionalCostGroup"), hourlyRate: getEl("hourlyRateGroup"),
+            customRate: getEl("customRateGroup"), customWage: getEl("customWageGroup"),
+        },
+        results: {
+            container: getEl("results"), placeholder: getEl("placeholder"), totalSavings: getEl("totalSavings"),
+            timeSaved: getEl("timeSaved"), timeValue: getEl("timeValue"), roiPercentage: getEl("roiPercentage"),
+            productivityGain: getEl("productivityGain"), savingsPerVideo: getEl("savingsPerVideo"),
+            costROI: getEl("costROI"), totalValue: getEl("totalValue"), breakeven: getEl("breakeven"),
+            costMethodNote: getEl("costMethodNote"), costMethodText: getEl("costMethodText"),
+            savingsHighlight: document.querySelector('.savings-highlight'),
+            comparisonTableBody: getEl("comparisonTableBody"),
+            savingsChartCanvas: getEl("savingsChart"),
+        },
+        bars: {
+            traditionalCost: getEl("barTraditionalCost"), lumenCost: getEl("barLumenCost"),
+            traditionalWidth: getEl("barTraditionalWidth"), lumenWidth: getEl("barLumenWidth"),
+        },
+        donut: {
+            ring: getEl("donutRing"), subtext: getEl("breakevenSubtext"),
+        },
+        modal: {
+            el: getEl("calculationModal"), title: getEl("modalTitle"), body: getEl("modalBody"),
+            closeBtn: document.querySelector(".close-modal"),
+        },
+        buttons: {
+            export: document.querySelector(".export-btn"),
+        }
+    };
+
+    let state = {};
+    let savingsChart = null;
+    let pricingMode = 'slider'; // 'slider' or 'manual'
+
+    // Pricing tiers: { maxSeats, name, basePrice, baseSeats, perExtraSeat }
+    const pricingTiers = [
+        { maxSeats: 3,   name: "Team",                 basePrice: 9900,   baseSeats: 3,   perExtraSeat: 3300 },
+        { maxSeats: 4,   name: "Enterprise Lite",       basePrice: 17000,  baseSeats: 3,   perExtraSeat: 4850 },
+        { maxSeats: 9,   name: "Enterprise Starter",    basePrice: 24802,  baseSeats: 5,   perExtraSeat: 4850 },
+        { maxSeats: 49,  name: "Enterprise Standard",   basePrice: 45518,  baseSeats: 10,  perExtraSeat: 3950 },
+        { maxSeats: 299, name: "Enterprise Deluxe",     basePrice: 150035, baseSeats: 50,  perExtraSeat: 2550 },
+        { maxSeats: Infinity, name: "Enterprise Unlimited", basePrice: 829070, baseSeats: 300, perExtraSeat: 0 },
+    ];
+
+    const getTierForSeats = (seats) => {
+        for (const tier of pricingTiers) {
+            if (seats <= tier.maxSeats) return tier;
+        }
+        return pricingTiers[pricingTiers.length - 1];
+    };
+
+    const calcPriceForSeats = (seats) => {
+        const tier = getTierForSeats(seats);
+        const extraSeats = Math.max(0, seats - tier.baseSeats);
+        return tier.basePrice + (extraSeats * tier.perExtraSeat);
+    };
+
+    const teamSizeSlider = getEl("teamSize");
+    const teamSizeValue = getEl("teamSizeValue");
+    const planBadge = getEl("planBadge");
+    const estimatedCostLabel = getEl("estimatedCostLabel");
+    const pricingModeToggle = getEl("pricingModeToggle");
+    const teamSizeGroup = getEl("teamSizeGroup");
+    const manualCostGroup = getEl("manualCostGroup");
+
+    const updateTeamSizePricing = () => {
+        const seats = parseInt(teamSizeSlider.value);
+        teamSizeValue.textContent = seats >= 350 ? '300+' : seats;
+        const tier = getTierForSeats(seats);
+        const price = calcPriceForSeats(seats);
+        planBadge.textContent = tier.name;
+        estimatedCostLabel.textContent = `Est. $${Math.round(price).toLocaleString()}/yr`;
+        // Update the hidden enterprise cost input
+        if (pricingMode === 'slider') {
+            ui.inputs.enterpriseCost.value = Math.round(price);
+        }
+    };
+
+    teamSizeSlider.addEventListener('input', () => {
+        updateTeamSizePricing();
+        handleCalculate();
+    });
+
+    pricingModeToggle.addEventListener('click', () => {
+        if (pricingMode === 'slider') {
+            pricingMode = 'manual';
+            teamSizeGroup.style.display = 'none';
+            manualCostGroup.style.display = 'block';
+            pricingModeToggle.textContent = 'Use team size estimate';
+        } else {
+            pricingMode = 'slider';
+            teamSizeGroup.style.display = 'block';
+            manualCostGroup.style.display = 'none';
+            pricingModeToggle.textContent = 'I know my annual cost';
+            updateTeamSizePricing();
+        }
+        handleCalculate();
+    });
+
+    // Initialize pricing from slider
+    updateTeamSizePricing();
+
+    const $ = (v) => parseFloat(v) || 0;
+    const formatC = (v) => `$${Math.round(v).toLocaleString()}`;
+    const formatH = (v, d = 0) => `${$(v).toFixed(d)} hours`;
+
+    const calculate = () => {
+        const i = ui.inputs;
+        const videoCount = $(i.videoCount.value);
+        if (videoCount === 0) return false;
+
+        const timeFrameMonths = $(i.timeFrame.value) || 1;
+        const traditionalTime = $(i.traditionalTime.value);
+        const lumenTime = $(i.lumenTime.value) / 60;
+        const annualEnterpriseCost = $(i.enterpriseCost.value);
+        const lumenCostForPeriod = (annualEnterpriseCost / 12) * timeFrameMonths;
+
+        const hourlyRate = i.traditionalHourlyRate.value === 'custom' ? $(i.customRate.value) : $(i.traditionalHourlyRate.value);
+        const traditionalCostPerVideo = i.costMethod.value === 'direct' ? $(i.traditionalCost.value) : hourlyRate * traditionalTime;
+
+        const hourlyWage = i.hourlyWage.value === 'custom' ? $(i.customWage.value) : $(i.hourlyWage.value);
+
+        const totalTraditionalCost = videoCount * traditionalCostPerVideo;
+        const totalCostSavings = totalTraditionalCost - lumenCostForPeriod;
+
+        const coordTimeSavedPerVideo = (traditionalTime * 0.6) - (lumenTime * 0.67);
+        const totalCoordTimeSaved = videoCount * coordTimeSavedPerVideo;
+        const timeValueSaved = totalCoordTimeSaved * hourlyWage;
+
+        const totalValueCreated = totalCostSavings + timeValueSaved;
+        const savingsPerVideo = videoCount > 0 ? totalValueCreated / videoCount : 0;
+        const totalROI = lumenCostForPeriod > 0 ? (totalValueCreated / lumenCostForPeriod) * 100 : 0;
+
+        state = {
             inputs: {
-                videoCount: getEl("videoCount"), timeFrame: getEl("timeFrame"), enterpriseCost: getEl("enterpriseCost"),
-                costMethod: getEl("costMethod"), traditionalCost: getEl("traditionalCost"), traditionalHourlyRate: getEl("traditionalHourlyRate"),
-                customRate: getEl("customRate"), traditionalTime: getEl("traditionalTime"), lumenTime: getEl("lumenTime"),
-                hourlyWage: getEl("hourlyWage"), customWage: getEl("customWage"),
-            },
-            groups: {
-                traditionalCost: getEl("traditionalCostGroup"), hourlyRate: getEl("hourlyRateGroup"),
-                customRate: getEl("customRateGroup"), customWage: getEl("customWageGroup"),
+                videoCount, timeFrameMonths, traditionalTime, lumenTime, traditionalCostPerVideo,
+                hourlyRate: i.traditionalHourlyRate.value === 'custom' ? $(i.customRate.value) : $(i.traditionalHourlyRate.value),
+                hourlyWage, annualEnterpriseCost
             },
             results: {
-                container: getEl("results"), placeholder: getEl("placeholder"), totalSavings: getEl("totalSavings"),
-                timeSaved: getEl("timeSaved"), timeValue: getEl("timeValue"), roiPercentage: getEl("roiPercentage"),
-                productivityGain: getEl("productivityGain"), savingsPerVideo: getEl("savingsPerVideo"),
-                costROI: getEl("costROI"), totalValue: getEl("totalValue"), breakeven: getEl("breakeven"),
-                costMethodNote: getEl("costMethodNote"), costMethodText: getEl("costMethodText"),
-                savingsHighlight: document.querySelector('.savings-highlight'),
-                comparisonTableBody: getEl("comparisonTableBody"),
-                savingsChartCanvas: getEl("savingsChart"),
-            },
-            modal: {
-                el: getEl("calculationModal"), title: getEl("modalTitle"), body: getEl("modalBody"),
-                closeBtn: document.querySelector(".close-modal"),
-            },
-            buttons: {
-                calculate: document.querySelector(".calculate-btn"), export: document.querySelector(".export-btn"),
+                lumenCostForPeriod, totalTraditionalCost, totalCostSavings,
+                totalTimeSaved: videoCount * (traditionalTime - lumenTime),
+                coordTimeSavedPerVideo, totalCoordTimeSaved, timeValueSaved,
+                totalValueCreated, savingsPerVideo,
+                costOnlyROI: lumenCostForPeriod > 0 ? (totalCostSavings / lumenCostForPeriod) * 100 : 0,
+                totalROI,
+                productivityGain: lumenTime > 0 ? traditionalTime / lumenTime : 0,
+                breakEvenVideos: savingsPerVideo > 0 ? lumenCostForPeriod / savingsPerVideo : Infinity,
             }
         };
+        return true;
+    };
 
-        let state = {};
-        let savingsChart = null;
+    const render = () => {
+        const { results: r, inputs: i } = state;
+        const resUI = ui.results;
 
-        const $ = (v) => parseFloat(v) || 0;
-        const formatC = (v) => `$${Math.round(v).toLocaleString()}`;
-        const formatH = (v, d = 0) => `${$(v).toFixed(d)} hours`;
+        resUI.totalSavings.textContent = `${r.totalValueCreated >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.totalValueCreated)).toLocaleString()}`;
+        resUI.timeSaved.textContent = `${Math.round(r.totalTimeSaved)}h`;
+        resUI.timeValue.textContent = formatC(Math.max(0, r.timeValueSaved));
+        resUI.roiPercentage.textContent = `${Math.round(r.totalROI)}%`;
+        resUI.savingsPerVideo.textContent = `${r.savingsPerVideo >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.savingsPerVideo))}`;
+        resUI.costROI.textContent = `${Math.round(r.costOnlyROI)}%`;
+        resUI.totalValue.textContent = resUI.totalSavings.textContent;
+        resUI.breakeven.textContent = r.breakEvenVideos !== Infinity ? r.breakEvenVideos.toFixed(1) : "N/A";
+        resUI.productivityGain.textContent = r.productivityGain > 100 ? "100+x" : `${r.productivityGain.toFixed(1)}x`;
 
-        const calculate = () => {
-            const i = ui.inputs;
-            const videoCount = $(i.videoCount.value);
-            if (videoCount === 0) { alert("Please enter the number of videos created."); return false; }
+        const videosPerMonth = i.videoCount / i.timeFrameMonths;
+        const annualVideos = videosPerMonth * 12;
+        const annualTradCost = annualVideos * i.traditionalCostPerVideo;
+        if (ui.inputs.costMethod.value === "direct") {
+            resUI.costMethodText.textContent = `Post-production: ${formatC(i.traditionalCostPerVideo)}/video \u00d7 ${annualVideos.toFixed(0)} videos/year = ${formatC(annualTradCost)} annual cost`;
+        } else {
+            resUI.costMethodText.textContent = `Post-production: $${i.hourlyRate}/hr \u00d7 ${i.traditionalTime} hrs = ${formatC(i.traditionalCostPerVideo)}/video \u00d7 ${annualVideos.toFixed(0)} videos/year = ${formatC(annualTradCost)} annual cost`;
+        }
+        resUI.costMethodNote.style.display = "block";
 
-            const timeFrameMonths = $(i.timeFrame.value) || 1;
-            const traditionalTime = $(i.traditionalTime.value);
-            const lumenTime = $(i.lumenTime.value) / 60;
-            const annualEnterpriseCost = $(i.enterpriseCost.value);
-            const lumenCostForPeriod = (annualEnterpriseCost / 12) * timeFrameMonths;
+        // Update hero card color based on positive/negative
+        const sh = resUI.savingsHighlight;
+        if (r.totalValueCreated >= 0) {
+            sh.className = sh.className.replace(/from-\[.*?\]\s+to-\[.*?\]/, 'from-[#5645f5] to-[#8b19ce]');
+        } else {
+            sh.className = sh.className.replace(/from-\[.*?\]\s+to-\[.*?\]/, 'from-[#ef4444] to-[#dc2626]');
+        }
+        sh.querySelector('span').textContent = r.totalValueCreated >= 0 ? 'Total Value Created' : 'Net Cost';
 
-            const hourlyRate = i.traditionalHourlyRate.value === 'custom' ? $(i.customRate.value) : $(i.traditionalHourlyRate.value);
-            const traditionalCostPerVideo = i.costMethod.value === 'direct' ? $(i.traditionalCost.value) : hourlyRate * traditionalTime;
-            
-            const hourlyWage = i.hourlyWage.value === 'custom' ? $(i.customWage.value) : $(i.hourlyWage.value);
+        renderCostBars();
+        renderDonut();
+        renderTable();
+        renderChart();
 
-            const totalTraditionalCost = videoCount * traditionalCostPerVideo;
-            const totalCostSavings = totalTraditionalCost - lumenCostForPeriod;
-            
-            const coordTimeSavedPerVideo = (traditionalTime * 0.6) - (lumenTime * 0.67);
-            const totalCoordTimeSaved = videoCount * coordTimeSavedPerVideo;
-            const timeValueSaved = totalCoordTimeSaved * hourlyWage;
-            
-            const totalValueCreated = totalCostSavings + timeValueSaved;
-            const savingsPerVideo = videoCount > 0 ? totalValueCreated / videoCount : 0;
-            const totalROI = lumenCostForPeriod > 0 ? (totalValueCreated / lumenCostForPeriod) * 100 : 0;
-            
-            state = {
-                inputs: {
-                    videoCount, timeFrameMonths, traditionalTime, lumenTime, traditionalCostPerVideo,
-                    hourlyRate: i.traditionalHourlyRate.value === 'custom' ? $(i.customRate.value) : $(i.traditionalHourlyRate.value),
-                    hourlyWage, annualEnterpriseCost
-                },
-                results: {
-                    lumenCostForPeriod, totalTraditionalCost, totalCostSavings,
-                    totalTimeSaved: videoCount * (traditionalTime - lumenTime),
-                    coordTimeSavedPerVideo, totalCoordTimeSaved, timeValueSaved,
-                    totalValueCreated, savingsPerVideo,
-                    costOnlyROI: lumenCostForPeriod > 0 ? (totalCostSavings / lumenCostForPeriod) * 100 : 0,
-                    totalROI,
-                    productivityGain: lumenTime > 0 ? traditionalTime / lumenTime : 0,
-                    breakEvenVideos: savingsPerVideo > 0 ? lumenCostForPeriod / savingsPerVideo : Infinity,
-                }
-            };
-            return true;
-        };
-        
-        const render = () => {
-            const { results: r, inputs: i } = state;
-            const resUI = ui.results;
-            
-            resUI.totalSavings.textContent = `${r.totalValueCreated >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.totalValueCreated)).toLocaleString()}`;
-            resUI.timeSaved.textContent = `${Math.round(r.totalTimeSaved)}h`;
-            resUI.timeValue.textContent = formatC(Math.max(0, r.timeValueSaved));
-            resUI.roiPercentage.textContent = `${Math.round(r.totalROI)}%`;
-            resUI.savingsPerVideo.textContent = `${r.savingsPerVideo >= 0 ? '$' : '-$'}${Math.abs(Math.round(r.savingsPerVideo))}`;
-            resUI.costROI.textContent = `${Math.round(r.costOnlyROI)}%`;
-            resUI.totalValue.textContent = resUI.totalSavings.textContent;
-            resUI.breakeven.textContent = r.breakEvenVideos !== Infinity ? r.breakEvenVideos.toFixed(1) : "N/A";
-            resUI.productivityGain.textContent = r.productivityGain > 100 ? "100+x" : `${r.productivityGain.toFixed(1)}x`;
-            
-            const videosPerMonth = i.videoCount / i.timeFrameMonths;
-            const annualVideos = videosPerMonth * 12;
-            const annualTradCost = annualVideos * i.traditionalCostPerVideo;
-            if (ui.inputs.costMethod.value === "direct") {
-                resUI.costMethodText.textContent = `Post-production: ${formatC(i.traditionalCostPerVideo)}/video × ${annualVideos.toFixed(0)} videos/year = ${formatC(annualTradCost)} annual cost`;
+        resUI.placeholder.classList.add("hidden");
+        resUI.container.classList.remove("hidden");
+    };
+
+    const renderCostBars = () => {
+        const { results: r } = state;
+        const costReductionRing = getEl("costReductionRing");
+        const costReductionPct = getEl("costReductionPct");
+        const costReductionLabel = getEl("costReductionLabel");
+        const circumference = 364.4;
+
+        if (r.totalTraditionalCost > 0) {
+            const reductionPct = Math.max(0, Math.min(100, (r.totalCostSavings / r.totalTraditionalCost) * 100));
+            const offset = circumference - (circumference * reductionPct / 100);
+            costReductionRing.setAttribute('stroke-dashoffset', offset);
+            costReductionPct.textContent = `${Math.round(reductionPct)}%`;
+
+            if (reductionPct > 0) {
+                costReductionRing.classList.remove('text-[#ef4444]');
+                costReductionRing.classList.add('text-[#10b981]');
+                costReductionPct.classList.remove('text-[#ef4444]');
+                costReductionPct.classList.add('text-[#10b981]');
+                costReductionLabel.textContent = 'less than traditional post-production';
             } else {
-                resUI.costMethodText.textContent = `Post-production: $${i.hourlyRate}/hr × ${i.traditionalTime} hrs = ${formatC(i.traditionalCostPerVideo)}/video × ${annualVideos.toFixed(0)} videos/year = ${formatC(annualTradCost)} annual cost`;
+                costReductionRing.classList.remove('text-[#10b981]');
+                costReductionRing.classList.add('text-[#ef4444]');
+                costReductionPct.classList.remove('text-[#10b981]');
+                costReductionPct.classList.add('text-[#ef4444]');
+                costReductionLabel.textContent = 'Lumen5 costs more at this volume';
             }
-            resUI.costMethodNote.style.display = "block";
-            
-            const sh = resUI.savingsHighlight;
-            sh.style.background = r.totalValueCreated >= 0 ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-            sh.querySelector('h3').textContent = r.totalValueCreated >= 0 ? 'Total Value Created' : 'Net Cost';
-            sh.querySelector('p').textContent = r.totalValueCreated >= 0 ? 'Cost savings + Time value saved' : 'Create more videos to achieve positive ROI';
-            sh.querySelectorAll('p')[1].style.display = r.totalValueCreated >= 0 ? 'block' : 'none';
-            
-            renderTable();
-            renderChart();
-            
-            resUI.placeholder.classList.add("hidden");
-            resUI.container.classList.remove("hidden");
-        };
-        
-        const renderTable = () => {
-            const { results: r, inputs: i } = state;
-            const tradCoordTimeValue = (i.traditionalTime * 0.6 * i.hourlyWage) * i.videoCount;
-            const lumenCoordTimeValue = (i.lumenTime * 0.67 * i.hourlyWage) * i.videoCount;
+        } else {
+            costReductionRing.setAttribute('stroke-dashoffset', circumference);
+            costReductionPct.textContent = '0%';
+        }
+    };
 
-            const createRow = (label, tVal, lVal, dVal, dStyle, dPrefix, dSuffix="") => `<tr><td><strong>${label}</strong></td><td>${tVal}</td><td>${lVal}</td><td style="color:${dStyle};"><strong>${dPrefix}${dVal}${dSuffix}</strong></td></tr>`;
-
-            const rows = [
-                { l: "Post-Production Costs", t: formatC(r.totalTraditionalCost), l: formatC(r.lumenCostForPeriod), d: r.totalCostSavings, p: r.totalCostSavings >= 0 ? '-$' : '+$' },
-                { l: "Coordination Time Value", t: formatC(tradCoordTimeValue), l: formatC(lumenCoordTimeValue), d: r.timeValueSaved, p: r.timeValueSaved >= 0 ? '-$' : '+$' },
-                { l: "Total Post-Production Time", t: formatH(r.totalTimeSaved + i.lumenTime * i.videoCount), l: formatH(i.lumenTime * i.videoCount), d: r.totalTimeSaved, p: '-', s: ' hours' },
-                { l: "Coordination Hours", t: formatH(i.traditionalTime * 0.6 * i.videoCount, 1), l: formatH(i.lumenTime * 0.67 * i.videoCount, 1), d: r.totalCoordTimeSaved, p: '-', s: ' hours' },
-            ];
-
-            ui.results.comparisonTableBody.innerHTML = rows.map(row => createRow(row.l, row.t, row.l, Math.abs(Math.round(row.d)).toLocaleString(), row.d >= 0 ? '#10b981' : '#ef4444', row.p, row.s)).join('');
-        };
-        
-        const renderChart = () => {
-            const { results: r, inputs: i } = state;
+    const renderDonut = () => {
+        const { results: r, inputs: i } = state;
+        const circumference = 364.4;
+        const breakEvenVideos = r.breakEvenVideos;
+        if (breakEvenVideos === Infinity || breakEvenVideos <= 0) {
+            ui.donut.ring.setAttribute('stroke-dashoffset', circumference);
+            ui.donut.subtext.textContent = 'N/A';
+        } else {
             const videosPerMonth = i.videoCount / i.timeFrameMonths;
-            const monthlyLumenCost = i.annualEnterpriseCost / 12;
-            const monthlyCostSavings = (videosPerMonth * i.traditionalCostPerVideo) - monthlyLumenCost;
+            const breakEvenMonths = breakEvenVideos / videosPerMonth;
+            const pct = Math.min(breakEvenMonths / 12, 1);
+            const offset = circumference * pct;
+            ui.donut.ring.setAttribute('stroke-dashoffset', offset);
+            ui.donut.subtext.textContent = `Break-even in ${breakEvenMonths.toFixed(1)} months`;
+        }
+    };
 
-            const data = { labels: [], datasets: [ { data: [] }, { data: [] }, { data: [] }, { data: [] } ] };
-            for (let m = 1; m <= 12; m++) {
-                data.labels.push(`Month ${m}`);
-                const totalVideos = videosPerMonth * m;
-                const costSavings = monthlyCostSavings * m;
-                const timeSavings = r.coordTimeSavedPerVideo * totalVideos * i.hourlyWage;
-                data.datasets[0].data.push(costSavings + timeSavings);
-                data.datasets[1].data.push(costSavings);
-                data.datasets[2].data.push(timeSavings);
-                data.datasets[3].data.push(monthlyLumenCost * m);
-            }
-            
-            if (savingsChart) savingsChart.destroy();
-            savingsChart = new Chart(ui.results.savingsChartCanvas.getContext("2d"), {
-                type: "line",
-                data: {
-                    labels: data.labels,
-                    datasets: [
-                        { label: "Total Value Created", data: data.datasets[0].data, borderColor: "#10b981", backgroundColor: "rgba(16,185,129,.1)", tension: 0.4, fill: true },
-                        { label: "Cost Savings Only", data: data.datasets[1].data, borderColor: "#3b82f6", tension: 0.4 },
-                        { label: "Time Value Saved", data: data.datasets[2].data, borderColor: "#8b5cf6", tension: 0.4 },
-                        { label: "Lumen5 Investment", data: data.datasets[3].data, borderColor: "#ef4444", tension: 0.4 }
-                    ]
+    const renderTable = () => {
+        const { results: r, inputs: i } = state;
+        const tradCoordTimeValue = (i.traditionalTime * 0.6 * i.hourlyWage) * i.videoCount;
+        const lumenCoordTimeValue = (i.lumenTime * 0.67 * i.hourlyWage) * i.videoCount;
+
+        const createRow = (label, tVal, lVal, dVal, dStyle, dPrefix, dSuffix="") =>
+            `<tr><td class="px-6 py-4 font-semibold text-slate-300">${label}</td><td class="px-6 py-4 text-slate-400">${tVal}</td><td class="px-6 py-4 text-slate-400">${lVal}</td><td class="px-6 py-4" style="color:${dStyle};"><strong>${dPrefix}${dVal}${dSuffix}</strong></td></tr>`;
+
+        const rows = [
+            { l: "Total Post-Production Time", t: formatH(r.totalTimeSaved + i.lumenTime * i.videoCount), lv: formatH(i.lumenTime * i.videoCount), d: r.totalTimeSaved, p: '-', s: ' hours' },
+            { l: "Coordination Hours", t: formatH(i.traditionalTime * 0.6 * i.videoCount, 1), lv: formatH(i.lumenTime * 0.67 * i.videoCount, 1), d: r.totalCoordTimeSaved, p: '-', s: ' hours' },
+            { l: "Cost Reduction", t: "100%", lv: r.totalTraditionalCost > 0 ? Math.round(Math.max(0, (r.totalCostSavings / r.totalTraditionalCost) * 100)) + '% less' : 'N/A', d: r.totalTraditionalCost > 0 ? Math.round((r.totalCostSavings / r.totalTraditionalCost) * 100) : 0, p: '', s: '%' },
+        ];
+
+        ui.results.comparisonTableBody.innerHTML = rows.map(row =>
+            createRow(row.l, row.t, row.lv, Math.abs(Math.round(row.d)).toLocaleString(), row.d >= 0 ? '#10b981' : '#ef4444', row.p, row.s || '')
+        ).join('');
+    };
+
+    const renderChart = () => {
+        const { results: r, inputs: i } = state;
+        const videosPerMonth = i.videoCount / i.timeFrameMonths;
+        const monthlyLumenCost = i.annualEnterpriseCost / 12;
+        const monthlyCostSavings = (videosPerMonth * i.traditionalCostPerVideo) - monthlyLumenCost;
+
+        const data = { labels: [], datasets: [ { data: [] }, { data: [] }, { data: [] }, { data: [] } ] };
+        for (let m = 1; m <= 12; m++) {
+            data.labels.push(`Month ${m}`);
+            const totalVideos = videosPerMonth * m;
+            const costSavings = monthlyCostSavings * m;
+            const timeSavings = r.coordTimeSavedPerVideo * totalVideos * i.hourlyWage;
+            data.datasets[0].data.push(costSavings + timeSavings);
+            data.datasets[1].data.push(costSavings);
+            data.datasets[2].data.push(timeSavings);
+            data.datasets[3].data.push(monthlyLumenCost * m);
+        }
+
+        if (savingsChart) savingsChart.destroy();
+        savingsChart = new Chart(ui.results.savingsChartCanvas.getContext("2d"), {
+            type: "line",
+            data: {
+                labels: data.labels,
+                datasets: [
+                    { label: "Total Value Created", data: data.datasets[0].data, borderColor: "#10b981", backgroundColor: "rgba(16,185,129,.1)", tension: 0.4, fill: true },
+                    { label: "Cost Savings Only", data: data.datasets[1].data, borderColor: "#3b82f6", tension: 0.4 },
+                    { label: "Time Value Saved", data: data.datasets[2].data, borderColor: "#8b5cf6", tension: 0.4 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: "top", labels: { color: "#94a3b8" } },
+                    title: { display: true, text: `12-Month Savings Projection (${videosPerMonth.toFixed(1)} videos/month)`, color: "#e2e8f0" }
                 },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { position: "top" }, title: { display: true, text: `12-Month Savings Projection (${videosPerMonth.toFixed(1)} videos/month)` } },
-                    scales: { y: { ticks: { callback: (v) => formatC(v).replace('$-', '-$') } } }
+                scales: {
+                    y: { ticks: { callback: (v) => formatC(v).replace('$-', '-$'), color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } },
+                    x: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } }
                 }
-            });
-        };
-        
-        const getModalContent = (type) => {
-            const { results: r, inputs: i } = state;
-            const c = (v) => Math.abs(Math.round(v)).toLocaleString();
-            const s = (v) => v >= 0 ? '$' : '-$';
-            const modalMap = {
-                timeSaved: {
-                    title: "Time Saved Calculation",
-                    html: `<p>Hours saved using Lumen5 instead of traditional post-production workflows.</p>
-                           <div class='calculation-formula'>(Traditional Time - Lumen5 Time) × Videos</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>(${i.traditionalTime}h traditional - ${i.lumenTime.toFixed(1)}h with Lumen5) × ${i.videoCount} videos = <strong>${Math.round(r.totalTimeSaved)} hours saved</strong></div>`
-                },
-                timeValue: {
-                    title: "Coordination Time Value Saved",
-                    html: `<p>Monetary value of coordination time freed up from managing post-production.</p>
-                           <div class='calculation-formula'>Coordination Time Saved × Coordination Wage</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>${r.totalCoordTimeSaved.toFixed(1)} hours saved × ${i.hourlyWage}/hour (your coordination wage) = <strong>${formatC(r.timeValueSaved)} saved</strong></div>`
-                },
-                roi: {
-                    title: "Total Return on Investment (ROI)",
-                    html: `<p>Complete financial return, including direct cost savings and time value.</p>
-                           <div class='calculation-formula'>(Total Value ÷ Lumen5 Cost) × 100</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>(${formatC(r.totalValueCreated)} total value created ÷ ${formatC(r.lumenCostForPeriod)} from your Lumen5 plan) × 100 = <strong>${Math.round(r.totalROI)}% Total ROI</strong></div>`
-                },
-                productivity: {
-                    title: "Post-Production Speed",
-                    html: `<p>How much faster you can complete video projects with Lumen5.</p>
-                           <div class='calculation-formula'>Traditional Time ÷ Lumen5 Time</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>${i.traditionalTime}h (traditional time) ÷ ${i.lumenTime.toFixed(1)}h (Lumen5 time) = <strong>${r.productivityGain > 100 ? "100+" : r.productivityGain.toFixed(1)}x faster</strong></div>`
-                },
-                savingsPerVideo: {
-                    title: "Total Savings per Video",
-                    html: `<p>Complete value (cost + time) saved on each video by using Lumen5.</p>
-                           <div class='calculation-formula'>Total Value Created ÷ Number of Videos</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>${s(r.totalValueCreated)}${c(r.totalValueCreated)} (total value) ÷ ${i.videoCount} videos created = <strong>${s(r.savingsPerVideo)}${c(r.savingsPerVideo)} per video</strong></div>`
-                },
-                costROI: {
-                    title: "Post-Production Cost ROI",
-                    html: `<p>ROI based only on direct post-production cost savings.</p>
-                           <div class='calculation-formula'>(Cost Savings ÷ Lumen5 Cost) × 100</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>(${s(r.totalCostSavings)}${c(r.totalCostSavings)} cost savings ÷ ${formatC(r.lumenCostForPeriod)} from your Lumen5 plan) × 100 = <strong>${Math.round(r.costOnlyROI)}% Cost ROI</strong></div>`
-                },
-                totalValue: {
-                    title: "Total Value Created",
-                    html: `<p>Complete economic value generated by using Lumen5.</p>
-                           <div class='calculation-formula'>Cost Savings + Time Value Saved</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>${s(r.totalCostSavings)}${c(r.totalCostSavings)} (post-production cost savings) + ${formatC(r.timeValueSaved)} (coordination time value) = <strong>${s(r.totalValueCreated)}${c(r.totalValueCreated)}</strong></div>`
-                },
-                breakeven: {
-                    title: "Videos to Break Even",
-                    html: `<p>Number of videos needed to pay for your Lumen5 subscription through savings.</p>
-                           <div class='calculation-formula'>Lumen5 Cost ÷ Savings per Video</div>
-                           <div class='example-box'><strong>Your Calculation:</strong><br>${formatC(r.lumenCostForPeriod)} (your Lumen5 plan cost for ${i.timeFrameMonths} month${i.timeFrameMonths > 1 ? 's' : ''}) ÷ ${s(r.savingsPerVideo)}${c(r.savingsPerVideo)} per video = <strong>${r.breakEvenVideos.toFixed(1)} videos</strong></div>`
-                },
-            };
-            return modalMap[type];
-        };
+            }
+        });
+    };
 
-        const showModal = (type) => {
-            const content = getModalContent(type);
-            if (!content) return;
-            ui.modal.title.textContent = content.title;
-            ui.modal.body.innerHTML = content.html;
-            ui.modal.el.style.display = "block";
-            document.body.style.overflow = "hidden";
+    const getModalContent = (type) => {
+        const { results: r, inputs: i } = state;
+        const c = (v) => Math.abs(Math.round(v)).toLocaleString();
+        const s = (v) => v >= 0 ? '$' : '-$';
+        const modalMap = {
+            timeSaved: {
+                title: "Time Saved Calculation",
+                html: `<p>Hours saved using Lumen5 instead of traditional post-production workflows.</p>
+                       <div class='calculation-formula'>(Traditional Time - Lumen5 Time) \u00d7 Videos</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>(${i.traditionalTime}h traditional - ${i.lumenTime.toFixed(1)}h with Lumen5) \u00d7 ${i.videoCount} videos = <strong>${Math.round(r.totalTimeSaved)} hours saved</strong></div>`
+            },
+            timeValue: {
+                title: "Coordination Time Value Saved",
+                html: `<p>Monetary value of coordination time freed up from managing post-production.</p>
+                       <div class='calculation-formula'>Coordination Time Saved \u00d7 Coordination Wage</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>${r.totalCoordTimeSaved.toFixed(1)} hours saved \u00d7 ${i.hourlyWage}/hour (your coordination wage) = <strong>${formatC(r.timeValueSaved)} saved</strong></div>`
+            },
+            roi: {
+                title: "Total Return on Investment (ROI)",
+                html: `<p>Complete financial return, including direct cost savings and time value.</p>
+                       <div class='calculation-formula'>(Total Value \u00f7 Lumen5 Cost) \u00d7 100</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>(${formatC(r.totalValueCreated)} total value created \u00f7 ${formatC(r.lumenCostForPeriod)} from your Lumen5 plan) \u00d7 100 = <strong>${Math.round(r.totalROI)}% Total ROI</strong></div>`
+            },
+            productivity: {
+                title: "Post-Production Speed",
+                html: `<p>How much faster you can complete video projects with Lumen5.</p>
+                       <div class='calculation-formula'>Traditional Time \u00f7 Lumen5 Time</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>${i.traditionalTime}h (traditional time) \u00f7 ${i.lumenTime.toFixed(1)}h (Lumen5 time) = <strong>${r.productivityGain > 100 ? "100+" : r.productivityGain.toFixed(1)}x faster</strong></div>`
+            },
+            savingsPerVideo: {
+                title: "Total Savings per Video",
+                html: `<p>Complete value (cost + time) saved on each video by using Lumen5.</p>
+                       <div class='calculation-formula'>Total Value Created \u00f7 Number of Videos</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>${s(r.totalValueCreated)}${c(r.totalValueCreated)} (total value) \u00f7 ${i.videoCount} videos created = <strong>${s(r.savingsPerVideo)}${c(r.savingsPerVideo)} per video</strong></div>`
+            },
+            costROI: {
+                title: "Post-Production Cost ROI",
+                html: `<p>ROI based only on direct post-production cost savings.</p>
+                       <div class='calculation-formula'>(Cost Savings \u00f7 Lumen5 Cost) \u00d7 100</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>(${s(r.totalCostSavings)}${c(r.totalCostSavings)} cost savings \u00f7 ${formatC(r.lumenCostForPeriod)} from your Lumen5 plan) \u00d7 100 = <strong>${Math.round(r.costOnlyROI)}% Cost ROI</strong></div>`
+            },
+            totalValue: {
+                title: "Total Value Created",
+                html: `<p>Complete economic value generated by using Lumen5.</p>
+                       <div class='calculation-formula'>Cost Savings + Time Value Saved</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>${s(r.totalCostSavings)}${c(r.totalCostSavings)} (post-production cost savings) + ${formatC(r.timeValueSaved)} (coordination time value) = <strong>${s(r.totalValueCreated)}${c(r.totalValueCreated)}</strong></div>`
+            },
+            breakeven: {
+                title: "Videos to Break Even",
+                html: `<p>Number of videos needed to pay for your Lumen5 subscription through savings.</p>
+                       <div class='calculation-formula'>Lumen5 Cost \u00f7 Savings per Video</div>
+                       <div class='example-box'><strong>Your Calculation:</strong><br>${formatC(r.lumenCostForPeriod)} (your Lumen5 plan cost for ${i.timeFrameMonths} month${i.timeFrameMonths > 1 ? 's' : ''}) \u00f7 ${s(r.savingsPerVideo)}${c(r.savingsPerVideo)} per video = <strong>${r.breakEvenVideos.toFixed(1)} videos</strong></div>`
+            },
         };
+        return modalMap[type];
+    };
 
-        const closeModal = () => {
-            ui.modal.el.style.display = "none";
-            document.body.style.overflow = "auto";
-        };
+    const showModal = (type) => {
+        const content = getModalContent(type);
+        if (!content) return;
+        ui.modal.title.textContent = content.title;
+        ui.modal.body.innerHTML = content.html;
+        ui.modal.el.style.display = "block";
+        document.body.style.overflow = "hidden";
+    };
 
-        const exportResults = () => {
-            const { results: r, inputs: i } = state;
-            const iUI = ui.inputs;
-            const tradCostDetail = ui.inputs.costMethod.value === 'direct' ? formatC(i.traditionalCostPerVideo) : `${formatC(i.traditionalCostPerVideo)} (from $${i.hourlyRate}/hr)`;
-            const report = `LUMEN5 POST-PRODUCTION ROI ANALYSIS REPORT
+    const closeModal = () => {
+        ui.modal.el.style.display = "none";
+        document.body.style.overflow = "auto";
+    };
+
+    const exportResults = () => {
+        const { results: r, inputs: i } = state;
+        if (!r) return;
+        const tradCostDetail = ui.inputs.costMethod.value === 'direct' ? formatC(i.traditionalCostPerVideo) : `${formatC(i.traditionalCostPerVideo)} (from $${i.hourlyRate}/hr)`;
+        const report = `LUMEN5 POST-PRODUCTION ROI ANALYSIS REPORT
 Generated: ${new Date().toLocaleString()}
 =====================================
 
@@ -414,49 +898,59 @@ Savings per Video: ${ui.results.savingsPerVideo.textContent}
 Productivity Gain: ${ui.results.productivityGain.textContent}
 Videos to Break Even: ${ui.results.breakeven.textContent}`;
 
-            try {
-                if (navigator.clipboard?.writeText) {
-                    navigator.clipboard.writeText(report).then(() => alert("ROI Report copied to clipboard!"));
-                } else {
-                    throw new Error("Clipboard API not available");
-                }
-            } catch (e) {
-                const modalHTML = `<div style="white-space: pre-wrap; font-family: monospace; background: #f5f5f5; padding: 20px; border-radius: 8px; max-height: 400px; overflow-y: auto;">${report.replace(/</g, '&lt;')}</div><p style="margin-top:15px;">Please copy the text above (Ctrl+A, Ctrl+C).</p>`;
-                ui.modal.title.textContent = "Export ROI Report";
-                ui.modal.body.innerHTML = modalHTML;
-                ui.modal.el.style.display = "block";
-                document.body.style.overflow = "hidden";
+        try {
+            if (navigator.clipboard?.writeText) {
+                navigator.clipboard.writeText(report).then(() => alert("ROI Report copied to clipboard!"));
+            } else {
+                throw new Error("Clipboard API not available");
             }
-        };
-        
-        const handleCalculate = () => {
-            if (calculate()) render();
-        };
+        } catch (e) {
+            const modalHTML = `<div style="white-space: pre-wrap; font-family: monospace; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; max-height: 400px; overflow-y: auto; color: #e2e8f0;">${report.replace(/</g, '&lt;')}</div><p style="margin-top:15px;">Please copy the text above (Ctrl+A, Ctrl+C).</p>`;
+            ui.modal.title.textContent = "Export ROI Report";
+            ui.modal.body.innerHTML = modalHTML;
+            ui.modal.el.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+    };
 
-        // Event Listeners
-        ui.buttons.calculate.addEventListener('click', handleCalculate);
-        ui.modal.closeBtn.addEventListener('click', closeModal);
-        window.addEventListener('click', (e) => { if (e.target === ui.modal.el) closeModal(); });
+    const handleCalculate = () => {
+        if (calculate()) render();
+    };
 
-        document.querySelectorAll('.info-button').forEach(btn => {
-            btn.addEventListener('click', () => showModal(btn.dataset.modal));
-        });
-
-        ui.inputs.costMethod.addEventListener('change', () => {
-            const isDirect = ui.inputs.costMethod.value === 'direct';
-            ui.groups.traditionalCost.style.display = isDirect ? 'block' : 'none';
-            ui.groups.hourlyRate.style.display = isDirect ? 'none' : 'block';
-            if (!isDirect) ui.inputs.traditionalHourlyRate.dispatchEvent(new Event('change'));
-        });
-
-        const toggleCustomInput = (select, group) => { group.style.display = select.value === 'custom' ? 'block' : 'none'; };
-        ui.inputs.traditionalHourlyRate.addEventListener('change', () => toggleCustomInput(ui.inputs.traditionalHourlyRate, ui.groups.customRate));
-        ui.inputs.hourlyWage.addEventListener('change', () => toggleCustomInput(ui.inputs.hourlyWage, ui.groups.customWage));
-        
-        // Initial Calculation
-        handleCalculate();
-        ui.inputs.videoCount.focus();
+    // Auto-calculate on any input change
+    Object.values(ui.inputs).forEach(input => {
+        if (input) {
+            input.addEventListener('input', handleCalculate);
+            input.addEventListener('change', handleCalculate);
+        }
     });
-    </script>
+
+    // Modal events
+    ui.modal.closeBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { if (e.target === ui.modal.el) closeModal(); });
+
+    document.querySelectorAll('.info-button').forEach(btn => {
+        btn.addEventListener('click', () => showModal(btn.dataset.modal));
+    });
+
+    // Export button
+    if (ui.buttons.export) ui.buttons.export.addEventListener('click', exportResults);
+
+    // Conditional field visibility
+    ui.inputs.costMethod.addEventListener('change', () => {
+        const isDirect = ui.inputs.costMethod.value === 'direct';
+        ui.groups.traditionalCost.style.display = isDirect ? 'block' : 'none';
+        ui.groups.hourlyRate.style.display = isDirect ? 'none' : 'block';
+        if (!isDirect) ui.inputs.traditionalHourlyRate.dispatchEvent(new Event('change'));
+    });
+
+    const toggleCustomInput = (select, group) => { group.style.display = select.value === 'custom' ? 'block' : 'none'; };
+    ui.inputs.traditionalHourlyRate.addEventListener('change', () => toggleCustomInput(ui.inputs.traditionalHourlyRate, ui.groups.customRate));
+    ui.inputs.hourlyWage.addEventListener('change', () => toggleCustomInput(ui.inputs.hourlyWage, ui.groups.customWage));
+
+    // Initial calculation on page load
+    handleCalculate();
+});
+</script>
 </body>
 </html>
