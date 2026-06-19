@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumen5 ROI Calculator - Quantify Your Video Impact</title>
+    <title>Lumen5 ROI Calculator - Video Production &amp; Animated Explainer Savings</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -94,6 +94,48 @@
         input[type="number"] {
             -moz-appearance: textfield;
         }
+        /* ===== Animated Explainer ROI tab ===== */
+        .tab-btn.is-active {
+            background: linear-gradient(90deg, #5645f5, #8b19ce);
+            color: #fff;
+            box-shadow: 0 0 24px rgba(86, 69, 245, 0.35);
+        }
+        .accent-gradient-text {
+            background: linear-gradient(100deg, #5645f5, #00ccf9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        /* Lumen5 savings bar: dashed empty track + gradient sliver (the emptiness is the story) */
+        .lumen-track {
+            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 7px, rgba(86,69,245,0.06) 7px, rgba(86,69,245,0.06) 14px);
+            border: 1.5px dashed rgba(124, 108, 255, 0.5);
+        }
+        .lumen-sliver {
+            background: linear-gradient(120deg, #5645f5, #00ccf9);
+        }
+        /* Range slider (matches the page's purple accent system) */
+        .ex-range {
+            -webkit-appearance: none; appearance: none;
+            height: 6px; border-radius: 9999px; background: #1e293b; cursor: pointer;
+        }
+        .ex-range::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 24px; height: 24px; border-radius: 9999px;
+            background: #5645f5; border: 4px solid #0f172a;
+            box-shadow: 0 2px 8px rgba(86,69,245,0.5); cursor: pointer;
+        }
+        .ex-range::-moz-range-thumb {
+            width: 24px; height: 24px; border-radius: 9999px;
+            background: #5645f5; border: 4px solid #0f172a;
+            box-shadow: 0 2px 8px rgba(86,69,245,0.5); cursor: pointer;
+        }
+        /* Toggle pill */
+        .ex-toggle { width: 42px; height: 24px; border-radius: 9999px; background: #334155; position: relative; transition: background .2s ease; flex-shrink: 0; }
+        .ex-toggle.on { background: #5645f5; }
+        .ex-toggle .knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 9999px; background: #fff; transition: left .2s ease; }
+        .ex-toggle.on .knob { left: 21px; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-body selection:bg-purple-500/30">
@@ -118,6 +160,17 @@
 
 <main class="pt-32 pb-24 px-6 min-h-screen digital-aurora-bg">
     <div class="max-w-7xl mx-auto">
+
+        <!-- Calculator Tabs -->
+        <div class="flex justify-center md:justify-start mb-10">
+            <div class="inline-flex p-1 rounded-full glass-card gap-1" role="tablist">
+                <button id="tab-video" role="tab" aria-selected="true" class="tab-btn is-active px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Video Production ROI</button>
+                <button id="tab-explainer" role="tab" aria-selected="false" class="tab-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all text-slate-400 hover:text-white">Animated Explainer ROI</button>
+            </div>
+        </div>
+
+        <!-- ============================ PANEL: VIDEO PRODUCTION ROI ============================ -->
+        <div id="panel-video">
 
         <!-- Hero Section -->
         <div class="mb-16 text-center md:text-left max-w-3xl">
@@ -414,6 +467,162 @@
                 </div><!-- end #results -->
             </div>
         </div>
+        </div><!-- end #panel-video -->
+
+        <!-- ============================ PANEL: ANIMATED EXPLAINER ROI ============================ -->
+        <div id="panel-explainer" class="hidden">
+
+            <!-- Hero Section -->
+            <div class="mb-16 text-center md:text-left max-w-3xl">
+                <span class="inline-flex items-center gap-2 bg-[#5645f5]/15 text-[#c4b5fd] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#00ccf9]"></span>Animated Explainer ROI
+                </span>
+                <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
+                    What's your explainer<br>budget really worth?
+                </h1>
+                <p class="text-xl text-slate-400 leading-relaxed font-body">
+                    See how much you'd save producing animated explainer videos on Lumen5 at <strong class="text-slate-200">$13 / finished minute</strong> versus a traditional animation agency.
+                </p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- ========== LEFT: INPUTS (5/12) ========== -->
+                <div class="lg:col-span-5 flex flex-col gap-8">
+                    <div class="glass-card p-8 md:p-10 rounded-2xl">
+                        <h2 class="font-headline text-2xl font-bold mb-8 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[#5645f5]">movie</span>
+                            Your Animation Needs
+                        </h2>
+                        <div class="space-y-8">
+                            <!-- Minutes slider -->
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label for="exMinutes" class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Minutes of animation / year</label>
+                                    <span id="exMinutesValue" class="text-2xl font-bold text-[#8b19ce]">24</span>
+                                </div>
+                                <input type="range" id="exMinutes" min="2" max="60" step="1" value="24" class="ex-range w-full">
+                                <div class="flex justify-between text-[10px] text-slate-600 px-1"><span>2 min</span><span>60 min</span></div>
+                            </div>
+
+                            <!-- Agency rate presets -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Agency rate / finished minute</label>
+                                <button data-preset="standard" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                    <span class="text-sm font-medium">Standard 2D explainer</span><span class="font-bold">$3,000</span>
+                                </button>
+                                <button data-preset="studio" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                    <span class="text-sm font-medium">US studio / premium</span><span class="font-bold">$6,000</span>
+                                </button>
+                                <button data-preset="custom" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                    <span class="text-sm font-medium">Custom rate</span><span id="exCustomLabel" class="font-bold">set →</span>
+                                </button>
+                                <div id="exCustomGroup" class="hidden">
+                                    <div class="relative mt-1">
+                                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-[#c4b5fd] pointer-events-none">$</span>
+                                        <input type="number" id="exCustomRate" min="0" step="100" value="4000" class="w-full bg-slate-900/50 border-2 border-[#5645f5] rounded-xl py-3.5 pl-9 pr-16 text-lg text-white outline-none focus:ring-2 focus:ring-[#5645f5]/40 transition-all">
+                                        <span class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-500 text-sm pointer-events-none">/ min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- In-house review toggle -->
+                            <button id="exReviewToggle" class="w-full flex items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-4 text-left hover:border-white/20 transition-all">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-200">Add in-house review time</p>
+                                    <p class="text-xs text-slate-500">~$150/min of internal effort, for a fair comparison</p>
+                                </div>
+                                <span id="exToggle" class="ex-toggle"><span class="knob"></span></span>
+                            </button>
+
+                            <!-- Lumen5 rate note -->
+                            <div class="rounded-2xl p-5 flex items-center gap-4" style="background: linear-gradient(120deg, #5645f5, #3e23de);">
+                                <svg viewBox="815 396 290 288" class="w-7 h-7 flex-shrink-0"><path fill="#fff" d="M900.9,625.7l30.4-59c1.5-2.9.8-6.5-1.8-8.6l-31.9-26.4-3-2.5c-1.4-1.2-2.3-2.9-2.3-4.9s1.2-4.3,3-5.4l5.1-3.2,109.4-69.9h0c.9-.6,1-1.8.3-2.6l-26-25.8c-13.3-13.3-35-13.3-48.3,0l-99.1,98.5c-13.3,13.3-13.3,34.8,0,48.1l62.4,62c.5.5,1.4.4,1.7-.3s0,0,0,0Z"></path><path fill="#fff" d="M1083.2,516l-62.4-62c-.5-.5-1.4-.4-1.7.3s0,0,0,0l-30.4,59c-1.5,2.9-.8,6.5,1.8,8.6l32.6,27,2.3,1.9c1.4,1.2,2.3,3,2.3,5s-1.2,4.2-2.9,5.4l-3.7,2.3-110.9,70.8h0c-.9.6-1,1.8-.3,2.6l25.9,25.8c13.3,13.3,35,13.3,48.3,0l99.1-98.5c13.3-13.3,13.3-34.8,0-48.1Z"></path></svg>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-white/70">Lumen5 Animation</p>
+                                    <p class="font-headline font-bold text-lg text-white">$13 / finished minute</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== RIGHT: RESULTS (7/12) ========== -->
+                <div class="lg:col-span-7 space-y-8">
+
+                    <!-- Hero savings -->
+                    <div class="glass-card rounded-2xl neon-glow p-10 md:p-12">
+                        <p class="text-slate-400 text-sm mb-2">With Lumen5 you'd keep</p>
+                        <h3 id="exSavings" class="font-headline text-6xl md:text-8xl font-black tracking-tighter accent-gradient-text leading-none mb-4">$0</h3>
+                        <p id="exSavingsSub" class="text-slate-400 text-lg max-w-xl">a year vs. an agency.</p>
+                    </div>
+
+                    <!-- Stat chips -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="glass-card rounded-2xl p-6">
+                            <p id="exMultiple" class="font-headline text-3xl font-extrabold text-[#8b19ce] mb-1">0×</p>
+                            <p class="text-xs text-slate-400">cheaper per minute</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6">
+                            <p id="exReduction" class="font-headline text-3xl font-extrabold text-[#8b19ce] mb-1">0%</p>
+                            <p class="text-xs text-slate-400">lower cost</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6">
+                            <p class="font-headline text-3xl font-extrabold text-[#8b19ce] mb-1">Days</p>
+                            <p class="text-xs text-slate-400">not 6–8 weeks</p>
+                        </div>
+                    </div>
+
+                    <!-- Annual spend comparison -->
+                    <div class="glass-card rounded-2xl p-8">
+                        <h4 class="font-headline font-bold text-lg mb-6">Your annual spend, side by side</h4>
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-xs text-slate-400 mb-1.5"><span>Agency</span><span id="exAgencyTotal" class="font-semibold text-slate-200">$0</span></div>
+                                <div class="h-9 rounded-lg bg-slate-600 w-full"></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs text-slate-400 mb-1.5"><span>Lumen5</span><span id="exKeepLabel" class="font-semibold text-[#c4b5fd]">↑ you keep $0</span></div>
+                                <div class="h-9 rounded-lg lumen-track w-full relative overflow-hidden">
+                                    <div id="exLumenSliver" class="lumen-sliver h-full rounded-lg" style="width: 8px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 12-month projection -->
+                    <div class="glass-card rounded-2xl p-8">
+                        <div class="h-[300px]"><canvas id="explainerChart"></canvas></div>
+                    </div>
+
+                    <!-- Per-minute table -->
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-white/5">
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Per minute</th>
+                                    <th class="text-left px-6 py-4 text-slate-400 font-semibold uppercase tracking-widest text-xs">Agency</th>
+                                    <th class="text-left px-6 py-4 text-[#c4b5fd] font-semibold uppercase tracking-widest text-xs">Lumen5</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr><td class="px-6 py-4 font-semibold text-slate-300">Cost</td><td class="px-6 py-4 text-slate-400"><span id="exTableAgencyCost">$3,000</span></td><td class="px-6 py-4 font-bold text-[#c4b5fd]">$13</td></tr>
+                                <tr><td class="px-6 py-4 font-semibold text-slate-300">Turnaround</td><td class="px-6 py-4 text-slate-400">6–8 weeks</td><td class="px-6 py-4 font-bold text-[#c4b5fd]">Same day</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="https://lumen5.com/enterprise/" target="_blank" rel="noopener" class="bg-gradient-to-r from-[#5645f5] to-[#8b19ce] text-white px-8 py-4 rounded-full font-bold hover:scale-[1.02] active:scale-95 transition-all">Book a demo →</a>
+                        <button id="exExportBtn" class="border-2 border-[#5645f5] text-[#c4b5fd] px-8 py-4 rounded-full font-bold hover:bg-[#5645f5]/10 transition-all">Export report</button>
+                        <span id="exBasis" class="text-xs text-slate-500 ml-auto">Based on 24 min/yr</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end #panel-explainer -->
+
     </div>
 </main>
 
@@ -950,6 +1159,139 @@ Videos to Break Even: ${ui.results.breakeven.textContent}`;
 
     // Initial calculation on page load
     handleCalculate();
+});
+</script>
+
+<!-- ============================ ANIMATED EXPLAINER ROI + TABS ============================ -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const $id = (id) => document.getElementById(id);
+
+    // ---------- Tabs ----------
+    const tabVideo = $id("tab-video"), tabExp = $id("tab-explainer");
+    const panelVideo = $id("panel-video"), panelExp = $id("panel-explainer");
+
+    const setTab = (which) => {
+        const exp = which === "explainer";
+        panelExp.classList.toggle("hidden", !exp);
+        panelVideo.classList.toggle("hidden", exp);
+        tabExp.classList.toggle("is-active", exp);
+        tabExp.classList.toggle("text-slate-400", !exp);
+        tabVideo.classList.toggle("is-active", !exp);
+        tabVideo.classList.toggle("text-slate-400", exp);
+        tabExp.setAttribute("aria-selected", String(exp));
+        tabVideo.setAttribute("aria-selected", String(!exp));
+        if (exp) renderExplainer(); // (re)build chart now that the canvas has a size
+    };
+    tabVideo.addEventListener("click", () => { setTab("video"); history.replaceState(null, "", "#video"); });
+    tabExp.addEventListener("click", () => { setTab("explainer"); history.replaceState(null, "", "#explainer"); });
+
+    // ---------- State ----------
+    const PRESET_RATES = { standard: 3000, studio: 6000 };
+    const LUMEN5 = 13, REVIEW_PER_MIN = 150;
+    const st = { minutes: 24, preset: "standard", customRate: 4000, review: false };
+
+    const minutesEl = $id("exMinutes"), minutesVal = $id("exMinutesValue");
+    const customGroup = $id("exCustomGroup"), customRateEl = $id("exCustomRate"), customLabel = $id("exCustomLabel");
+    const reviewToggleBtn = $id("exReviewToggle"), toggleEl = $id("exToggle");
+    const presetBtns = document.querySelectorAll(".ex-preset");
+    let explainerChart = null;
+
+    const fmt = (v) => `$${Math.round(v).toLocaleString()}`;
+    const PRESET_ACTIVE = ["bg-[#5645f5]", "text-white", "border-[#5645f5]"];
+    const PRESET_INACTIVE = ["bg-slate-900/40", "text-slate-300", "border-white/10"];
+
+    const compute = () => {
+        const agencyPerMin = st.preset === "custom" ? Math.max(0, st.customRate) : PRESET_RATES[st.preset];
+        const lumen5Eff = LUMEN5 + (st.review ? REVIEW_PER_MIN : 0);
+        const agencyTotal = st.minutes * agencyPerMin;
+        const lumen5Total = st.minutes * lumen5Eff;
+        const savings = Math.max(0, agencyTotal - lumen5Total);
+        const reductionPct = agencyTotal > 0 ? Math.round((1 - lumen5Total / agencyTotal) * 100) : 0;
+        const multiple = lumen5Eff > 0 ? Math.round(agencyPerMin / lumen5Eff) : 0;
+        const lumenBarW = agencyTotal > 0 ? Math.max(1.5, (lumen5Total / agencyTotal) * 100) : 1.5;
+        return { agencyPerMin, lumen5Eff, agencyTotal, lumen5Total, savings, reductionPct, multiple, lumenBarW };
+    };
+
+    const renderPresets = () => {
+        presetBtns.forEach((b) => {
+            const on = b.dataset.preset === st.preset;
+            PRESET_ACTIVE.forEach((c) => b.classList.toggle(c, on));
+            PRESET_INACTIVE.forEach((c) => b.classList.toggle(c, !on));
+        });
+        customGroup.classList.toggle("hidden", st.preset !== "custom");
+        customLabel.textContent = st.preset === "custom" ? fmt(st.customRate) : "set →";
+    };
+
+    const renderExChart = (r) => {
+        const labels = [], agency = [], lumen = [];
+        for (let m = 1; m <= 12; m++) { labels.push(`M${m}`); agency.push(r.agencyTotal * (m / 12)); lumen.push(r.lumen5Total * (m / 12)); }
+        if (explainerChart) explainerChart.destroy();
+        explainerChart = new Chart($id("explainerChart").getContext("2d"), {
+            type: "line",
+            data: { labels, datasets: [
+                { label: "Agency", data: agency, borderColor: "#94a3b8", backgroundColor: "rgba(148,163,184,0.08)", tension: 0.3, fill: true, pointRadius: 0 },
+                { label: "Lumen5", data: lumen, borderColor: "#5645f5", backgroundColor: "rgba(86,69,245,0.12)", tension: 0.3, fill: true, pointRadius: 0 },
+            ]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: "top", labels: { color: "#94a3b8" } }, title: { display: true, text: "Cumulative cost over 12 months", color: "#e2e8f0" } },
+                scales: {
+                    y: { ticks: { callback: (v) => fmt(v), color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } },
+                    x: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } }
+                }
+            }
+        });
+    };
+
+    const renderExplainer = () => {
+        const r = compute();
+        const dispPct = r.reductionPct >= 99 ? 99 : r.reductionPct;
+        minutesVal.textContent = st.minutes;
+        $id("exSavings").textContent = fmt(r.savings);
+        $id("exSavingsSub").innerHTML = `a year vs. a ${fmt(r.agencyPerMin)}/min agency — that's <strong class="text-slate-200">${dispPct}% less</strong> for the same ${st.minutes} minutes of finished animation.`;
+        $id("exMultiple").textContent = `${r.multiple}×`;
+        $id("exReduction").textContent = `${dispPct}%`;
+        $id("exAgencyTotal").textContent = fmt(r.agencyTotal);
+        $id("exKeepLabel").textContent = `↑ you keep ${fmt(r.savings)}`;
+        $id("exLumenSliver").style.width = `${r.lumenBarW}%`;
+        $id("exTableAgencyCost").textContent = fmt(r.agencyPerMin);
+        $id("exBasis").textContent = `Based on ${st.minutes} min/yr`;
+        renderPresets();
+        if (!panelExp.classList.contains("hidden")) renderExChart(r); // skip chart while hidden (0-size canvas)
+    };
+
+    // ---------- Events ----------
+    minutesEl.addEventListener("input", () => { st.minutes = parseInt(minutesEl.value) || 2; renderExplainer(); });
+    presetBtns.forEach((b) => b.addEventListener("click", () => {
+        st.preset = b.dataset.preset;
+        if (st.preset === "custom") st.customRate = parseFloat(customRateEl.value) || 0;
+        renderExplainer();
+    }));
+    customRateEl.addEventListener("input", () => { st.customRate = Math.max(0, parseFloat(customRateEl.value) || 0); st.preset = "custom"; renderExplainer(); });
+    reviewToggleBtn.addEventListener("click", () => { st.review = !st.review; toggleEl.classList.toggle("on", st.review); renderExplainer(); });
+
+    $id("exExportBtn").addEventListener("click", () => {
+        const r = compute();
+        const report = `LUMEN5 ANIMATED EXPLAINER ROI
+=====================================
+Minutes of animation / year: ${st.minutes}
+Agency rate / min: ${fmt(r.agencyPerMin)}
+In-house review: ${st.review ? "Yes (+$150/min)" : "No"}
+Lumen5 rate / min: ${fmt(r.lumen5Eff)}
+
+Agency annual spend: ${fmt(r.agencyTotal)}
+Lumen5 annual spend: ${fmt(r.lumen5Total)}
+You keep: ${fmt(r.savings)}  (${r.reductionPct >= 99 ? 99 : r.reductionPct}% less, ${r.multiple}x cheaper/min)`;
+        if (navigator.clipboard?.writeText) navigator.clipboard.writeText(report).then(() => alert("Explainer ROI report copied to clipboard!"));
+        else alert(report);
+    });
+
+    // Initial paint (text + bars; chart builds when the tab is first shown)
+    renderExplainer();
+
+    // Deep link: lumen5.com/roi#explainer lands directly on the explainer tab
+    if (location.hash === "#explainer") setTab("explainer");
 });
 </script>
 </body>
