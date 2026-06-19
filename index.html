@@ -607,7 +607,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-white/5">
-                                <tr><td class="px-6 py-4 font-semibold text-slate-300">Cost</td><td class="px-6 py-4 text-slate-400"><span id="exTableAgencyCost">$3,000</span></td><td class="px-6 py-4 font-bold text-[#c4b5fd]">A fraction</td></tr>
+                                <tr><td class="px-6 py-4 font-semibold text-slate-300">Cost</td><td class="px-6 py-4 text-slate-400"><span id="exTableAgencyCost">$3,000</span></td><td class="px-6 py-4 font-bold text-[#c4b5fd]">~$15</td></tr>
                                 <tr><td class="px-6 py-4 font-semibold text-slate-300">Turnaround</td><td class="px-6 py-4 text-slate-400">6–8 weeks</td><td class="px-6 py-4 font-bold text-[#c4b5fd]">Same day</td></tr>
                             </tbody>
                         </table>
@@ -1188,7 +1188,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---------- State ----------
     const PRESET_RATES = { standard: 3000, studio: 6000 };
-    const LUMEN5 = 13, REVIEW_PER_MIN = 150;
+    const LUMEN5 = 15, REVIEW_PER_MIN = 150; // conservative public per-min figure (matches the "~$15" shown in the per-minute table)
     const st = { minutes: 24, preset: "standard", customRate: 4000, review: false };
 
     const minutesEl = $id("exMinutes"), minutesVal = $id("exMinutesValue");
