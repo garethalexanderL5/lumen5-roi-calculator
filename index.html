@@ -539,7 +539,7 @@
                             <button id="exReviewToggle" class="w-full flex items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-4 text-left hover:border-white/20 transition-all">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-200">Add in-house review time</p>
-                                    <p class="text-xs text-slate-500">~$150/min of internal effort, for a fair comparison</p>
+                                    <p class="text-xs text-slate-500">~$50/min of internal effort, for a fair comparison</p>
                                 </div>
                                 <span id="exToggle" class="ex-toggle"><span class="knob"></span></span>
                             </button>
@@ -1213,7 +1213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---------- State ----------
     const PRESET_RATES = { standard: 3000, studio: 6000 };
-    const LUMEN5 = 13, REVIEW_PER_MIN = 150;
+    const LUMEN5 = 13, REVIEW_PER_MIN = 50;
     const st = { minutes: 24, preset: "standard", customRate: 4000, review: false };
 
     const minutesEl = $id("exMinutes"), minutesVal = $id("exMinutesValue");
@@ -1303,7 +1303,7 @@ document.addEventListener("DOMContentLoaded", () => {
 =====================================
 Minutes of animation / year: ${st.minutes}
 Agency rate / min: ${fmt(r.agencyPerMin)}
-In-house review: ${st.review ? "Yes (+$150/min)" : "No"}
+In-house review: ${st.review ? "Yes (+$50/min)" : "No"}
 Lumen5 rate / min: ${fmt(r.lumen5Eff)}
 
 Agency annual spend: ${fmt(r.agencyTotal)}
