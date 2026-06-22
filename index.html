@@ -166,11 +166,11 @@
     </div>
 </nav>
 
-<main class="pt-32 pb-24 px-6 min-h-screen digital-aurora-bg">
+<main class="pt-24 pb-24 px-6 min-h-screen digital-aurora-bg">
     <div class="max-w-7xl mx-auto">
 
         <!-- Calculator Tabs -->
-        <div class="flex justify-center md:justify-start mb-10">
+        <div class="flex justify-center md:justify-start mb-6">
             <div class="inline-flex p-1 rounded-full glass-card gap-1" role="tablist">
                 <button id="tab-video" role="tab" aria-selected="true" class="tab-btn is-active px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Video Production ROI</button>
                 <button id="tab-explainer" role="tab" aria-selected="false" class="tab-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all text-slate-400 hover:text-white">Animated Explainer ROI</button>
@@ -481,14 +481,14 @@
         <div id="panel-explainer" class="hidden">
 
             <!-- Hero Section -->
-            <div class="mb-16 text-center md:text-left max-w-3xl">
-                <span class="inline-flex items-center gap-2 bg-[#5645f5]/15 text-[#c4b5fd] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+            <div class="mb-6 text-center md:text-left max-w-3xl">
+                <span class="inline-flex items-center gap-2 bg-[#5645f5]/15 text-[#c4b5fd] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#00ccf9]"></span>Animated Explainer ROI
                 </span>
-                <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.12] pb-1 mb-5 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
+                <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter leading-[1.15] pb-2 mb-3 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
                     What's your explainer<br>budget really worth?
                 </h1>
-                <p class="text-xl text-slate-400 leading-relaxed font-body">
+                <p class="text-lg text-slate-400 leading-relaxed font-body">
                     See how much you'd save producing animated explainer videos on Lumen5 — at <strong class="text-slate-200">a fraction of the cost</strong> of a traditional animation agency.
                 </p>
             </div>
@@ -497,13 +497,13 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
                 <!-- ========== LEFT: INPUTS (5/12) ========== -->
-                <div class="lg:col-span-5 flex flex-col gap-8">
-                    <div class="glass-card p-8 md:p-10 rounded-2xl">
-                        <h2 class="font-headline text-2xl font-bold mb-8 flex items-center gap-2">
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="glass-card p-6 md:p-7 rounded-2xl">
+                        <h2 class="font-headline text-2xl font-bold mb-5 flex items-center gap-2">
                             <span class="material-symbols-outlined text-[#5645f5]">movie</span>
                             Your Animation Needs
                         </h2>
-                        <div class="space-y-8">
+                        <div class="space-y-4">
                             <!-- Minutes slider -->
                             <div class="space-y-3">
                                 <div class="flex items-center justify-between">
@@ -517,13 +517,13 @@
                             <!-- Agency rate presets -->
                             <div class="space-y-3">
                                 <label class="block text-xs font-semibold uppercase tracking-widest text-slate-500">Agency rate / finished minute</label>
-                                <button data-preset="standard" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                <button data-preset="standard" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3 border-2 transition-all text-left">
                                     <span class="text-sm font-medium">Standard 2D explainer</span><span class="font-bold">$3,000</span>
                                 </button>
-                                <button data-preset="studio" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                <button data-preset="studio" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3 border-2 transition-all text-left">
                                     <span class="text-sm font-medium">US studio / premium</span><span class="font-bold">$6,000</span>
                                 </button>
-                                <button data-preset="custom" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3.5 border-2 transition-all text-left">
+                                <button data-preset="custom" class="ex-preset w-full flex items-center justify-between rounded-xl px-4 py-3 border-2 transition-all text-left">
                                     <span class="text-sm font-medium">Custom rate</span><span id="exCustomLabel" class="font-bold">set →</span>
                                 </button>
                                 <div id="exCustomGroup" class="hidden">
@@ -536,7 +536,7 @@
                             </div>
 
                             <!-- In-house review toggle -->
-                            <button id="exReviewToggle" class="w-full flex items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-4 text-left hover:border-white/20 transition-all">
+                            <button id="exReviewToggle" class="w-full flex items-center justify-between gap-4 rounded-2xl border border-white/10 px-4 py-3.5 text-left hover:border-white/20 transition-all">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-200">Add in-house review time</p>
                                     <p class="text-xs text-slate-500">~$50/min of internal effort, for a fair comparison</p>
@@ -545,7 +545,7 @@
                             </button>
 
                             <!-- Lumen5 rate note -->
-                            <div class="rounded-2xl p-5 flex items-center gap-4" style="background: linear-gradient(120deg, #5645f5, #3e23de);">
+                            <div class="rounded-2xl p-4 flex items-center gap-4" style="background: linear-gradient(120deg, #5645f5, #3e23de);">
                                 <svg viewBox="815 396 290 288" class="w-7 h-7 flex-shrink-0"><path fill="#fff" d="M900.9,625.7l30.4-59c1.5-2.9.8-6.5-1.8-8.6l-31.9-26.4-3-2.5c-1.4-1.2-2.3-2.9-2.3-4.9s1.2-4.3,3-5.4l5.1-3.2,109.4-69.9h0c.9-.6,1-1.8.3-2.6l-26-25.8c-13.3-13.3-35-13.3-48.3,0l-99.1,98.5c-13.3,13.3-13.3,34.8,0,48.1l62.4,62c.5.5,1.4.4,1.7-.3s0,0,0,0Z"></path><path fill="#fff" d="M1083.2,516l-62.4-62c-.5-.5-1.4-.4-1.7.3s0,0,0,0l-30.4,59c-1.5,2.9-.8,6.5,1.8,8.6l32.6,27,2.3,1.9c1.4,1.2,2.3,3,2.3,5s-1.2,4.2-2.9,5.4l-3.7,2.3-110.9,70.8h0c-.9.6-1,1.8-.3,2.6l25.9,25.8c13.3,13.3,35,13.3,48.3,0l99.1-98.5c13.3-13.3,13.3-34.8,0-48.1Z"></path></svg>
                                 <div>
                                     <p class="text-[10px] font-bold uppercase tracking-widest text-white/70">Lumen5 Animation</p>
